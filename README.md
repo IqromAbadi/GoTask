@@ -2,6 +2,36 @@
 
 A production-ready task management REST API built with Go, featuring workflow-based task tracking similar to mini-Jira.
 
+---
+
+## 📑 Daftar Isi
+
+1. [Fitur](#features)
+2. [Technology Stack](#technology-stack)
+3. [Struktur Folder](#project-structure)
+4. [🧠 Panduan untuk Pemula (Bahasa Indonesia)](#-panduan-struktur-folder--urutan-coding-untuk-pemula)
+   - [Gambaran Besar](#-gambaran-besar-ibarat-gedung-perkantoran)
+   - [Arsitektur Modul (Rumus 6M)](#-arsitektur-dalam-setiap-modul-pola-6-file)
+   - [Urutan Membuat dari Nol](#-urutan-membuat-project-dari-nol-step-by-step)
+   - [Kesalahan Umum](#-5-kesalahan-umum-pemula-jangan-ditiru)
+   - [FAQ](#-faq--pertanyaan-yang-sering-muncul)
+5. [Setup & Instalasi](#setup)
+6. [API Endpoints](#api-endpoints)
+7. [Contoh Request/Response](#api-examples)
+8. [Task Workflow](#task-workflow)
+9. [Business Rules](#business-rules)
+10. [ERD](#erd-entity-relationship-diagram)
+11. [Arsitektur](#architecture)
+12. [Keamanan](#security)
+13. [Makefile Commands](#makefile-commands)
+14. [🛠️ Troubleshooting](#-troubleshooting)
+15. [Testing](#testing)
+16. [📖 Kamus Istilah](#-kamus-istilah-glossary)
+17. [🤝 Berkontribusi](#-berkontribusi-contribution-guide)
+18. [📊 Status Project](#-status-project)
+
+---
+
 ## Features
 
 - 🔐 **JWT Authentication** — Register, login, refresh token rotation, logout
@@ -801,6 +831,128 @@ make docker-down      # Stop Docker Compose
 make lint             # Run linter
 make fmt              # Format code
 ```
+
+---
+
+## 🛠️ Troubleshooting
+
+### ❌ Port 8080 sudah digunakan (`bind: address already in use`)
+
+**Penyebab:** Server sebelumnya masih berjalan di background.
+
+**Cek apakah port sedang dipakai:**
+```bash
+lsof -i :8080
+```
+
+**Solusi — matikan server lama dulu:**
+```bash
+pkill -f gotask
+```
+
+Lalu jalankan ulang:
+```bash
+go run ./cmd/api
+```
+
+**Atau gunakan satu command untuk restart otomatis:**
+```bash
+pkill -f gotask 2>/dev/null; sleep 1; \
+  export GOPATH=$HOME/go GOMODCACHE=$HOME/go/pkg/mod && \
+  export $(grep -v '^#' .env | xargs) && \
+  go run ./cmd/api
+```
+
+---
+
+### ❌ Tabel database tidak ditemukan (`relation "users" does not exist`)
+
+**Penyebab:** Migrasi belum dijalankan atau gagal.
+
+**Cek status migrasi:**
+```bash
+psql -U gotask -d gotask -c "SELECT * FROM schema_migrations;"
+```
+
+**Cek daftar tabel:**
+```bash
+psql -U gotask -d gotask -c "\dt"
+```
+
+**Solusi — jalankan migrasi:**
+```bash
+export $(grep -v '^#' .env | xargs)
+migrate -path db/migrations -database "$DATABASE_URL" up
+```
+
+---
+
+### ❌ PostgreSQL tidak berjalan (`connection refused`)
+
+**Cek status PostgreSQL:**
+```bash
+pg_isready
+```
+
+**Solusi — start PostgreSQL (Homebrew):**
+```bash
+brew services start postgresql@16
+```
+
+**Cek apakah user & database sudah dibuat:**
+```bash
+psql -U gotask -d gotask -c "\dt"
+```
+
+Jika belum, buat database:
+```bash
+psql -d postgres -c "CREATE USER gotask WITH PASSWORD 'gotask';"
+psql -d postgres -c "CREATE DATABASE gotask OWNER gotask;"
+```
+
+---
+
+### ❌ `go: could not create module cache: mkdir /Volumes/...`
+
+**Penyebab:** `GOPATH` atau `GOMODCACHE` mengarah ke volume yang tidak bisa ditulis.
+
+**Solusi — arahkan ke home directory:**
+```bash
+export GOPATH=$HOME/go
+export GOMODCACHE=$HOME/go/pkg/mod
+```
+
+Tambahkan ke `~/.zshrc` agar permanen:
+```bash
+echo 'export GOPATH=$HOME/go' >> ~/.zshrc
+echo 'export GOMODCACHE=$HOME/go/pkg/mod' >> ~/.zshrc
+source ~/.zshrc
+```
+
+---
+
+### ❌ Format tanggal tidak bisa diparse (`Format request tidak valid`)
+
+**Penyebab:** Format tanggal di JSON body salah.
+
+**Format yang benar:** `"YYYY-MM-DD"` (contoh: `"2026-07-30"`)
+
+**Contoh benar:**
+```json
+{
+  "title": "Task baru",
+  "due_date": "2026-07-30"
+}
+```
+
+**Contoh salah:**
+```json
+{
+  "due_date": "2026-07-30T00:00:00Z"   ← JANGAN pakai format ini
+}
+```
+
+---
 
 ## Testing
 
