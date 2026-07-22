@@ -15,12 +15,8 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/health",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "health"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["health"]
             }
           }
         }
@@ -62,15 +58,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/auth/register",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "register"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "register"]
             }
           }
         },
@@ -117,15 +106,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/auth/login",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "login"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "login"]
             }
           }
         },
@@ -152,15 +134,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/auth/refresh",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "refresh"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "refresh"]
             }
           }
         },
@@ -187,15 +162,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/auth/logout",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "auth",
-                "logout"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "auth", "logout"]
             }
           }
         }
@@ -217,15 +185,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/users/me",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "me"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "users", "me"]
             }
           }
         },
@@ -261,15 +222,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/users/me",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "me"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "users", "me"]
             }
           }
         },
@@ -305,16 +259,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/users/me/password",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "users",
-                "me",
-                "password"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "users", "me", "password"]
             }
           }
         }
@@ -369,14 +315,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/lists",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "lists"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "lists"]
             }
           }
         },
@@ -393,14 +333,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "lists"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "lists"]
             }
           }
         },
@@ -417,15 +351,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "lists",
-                "{{list_id}}"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "lists", "{{list_id}}"]
             }
           }
         },
@@ -461,15 +388,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "lists",
-                "{{list_id}}"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "lists", "{{list_id}}"]
             }
           }
         },
@@ -486,16 +406,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}/archive",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "lists",
-                "{{list_id}}",
-                "archive"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "lists", "{{list_id}}", "archive"]
             }
           }
         },
@@ -512,16 +424,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}/restore",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "lists",
-                "{{list_id}}",
-                "restore"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "lists", "{{list_id}}", "restore"]
             }
           }
         },
@@ -538,15 +442,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "lists",
-                "{{list_id}}"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "lists", "{{list_id}}"]
             }
           }
         },
@@ -563,16 +460,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}/board",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "lists",
-                "{{list_id}}",
-                "board"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "lists", "{{list_id}}", "board"]
             }
           }
         }
@@ -647,16 +536,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}/tasks",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "lists",
-                "{{list_id}}",
-                "tasks"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "lists", "{{list_id}}", "tasks"]
             }
           }
         },
@@ -673,16 +554,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}/tasks?status=todo&priority=high&sort_by=created_at&sort_order=desc&page=1&limit=20",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "lists",
-                "{{list_id}}",
-                "tasks"
-              ],
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "lists", "{{list_id}}", "tasks"],
               "query": [
                 {
                   "key": "status",
@@ -736,15 +609,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}"]
             }
           }
         },
@@ -785,15 +651,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}"]
             }
           }
         },
@@ -810,15 +669,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}"]
             }
           }
         },
@@ -849,16 +701,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/status",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}",
-                "status"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}", "status"]
             }
           }
         },
@@ -889,16 +733,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/priority",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}",
-                "priority"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}", "priority"]
             }
           }
         },
@@ -915,16 +751,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/reopen",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}",
-                "reopen"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}", "reopen"]
             }
           }
         }
@@ -978,16 +806,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/progress",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}",
-                "progress"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}", "progress"]
             }
           }
         },
@@ -1028,16 +848,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/progress",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}",
-                "progress"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}", "progress"]
             }
           }
         },
@@ -1054,16 +866,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/progress",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}",
-                "progress"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}", "progress"]
             }
           }
         },
@@ -1080,9 +884,7 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/progress/{{progress_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
+              "host": ["{{base_url}}"],
               "path": [
                 "api",
                 "v1",
@@ -1121,9 +923,7 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/progress/{{progress_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
+              "host": ["{{base_url}}"],
               "path": [
                 "api",
                 "v1",
@@ -1148,9 +948,7 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/progress/{{progress_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
+              "host": ["{{base_url}}"],
               "path": [
                 "api",
                 "v1",
@@ -1207,16 +1005,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/submit-review",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}",
-                "submit-review"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}", "submit-review"]
             }
           }
         },
@@ -1233,16 +1023,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/reviews",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}",
-                "reviews"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}", "reviews"]
             }
           }
         },
@@ -1259,9 +1041,7 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/reviews/{{review_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
+              "host": ["{{base_url}}"],
               "path": [
                 "api",
                 "v1",
@@ -1300,9 +1080,7 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/reviews/{{review_id}}/approve",
-              "host": [
-                "{{base_url}}"
-              ],
+              "host": ["{{base_url}}"],
               "path": [
                 "api",
                 "v1",
@@ -1342,9 +1120,7 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/reviews/{{review_id}}/request-changes",
-              "host": [
-                "{{base_url}}"
-              ],
+              "host": ["{{base_url}}"],
               "path": [
                 "api",
                 "v1",
@@ -1402,16 +1178,8 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/comments",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}",
-                "comments"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}", "comments"]
             }
           }
         },
@@ -1428,16 +1196,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/comments",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}",
-                "comments"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}", "comments"]
             }
           }
         },
@@ -1468,9 +1228,7 @@
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/comments/{{comment_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
+              "host": ["{{base_url}}"],
               "path": [
                 "api",
                 "v1",
@@ -1495,9 +1253,7 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/comments/{{comment_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
+              "host": ["{{base_url}}"],
               "path": [
                 "api",
                 "v1",
@@ -1527,16 +1283,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/activities",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "tasks",
-                "{{task_id}}",
-                "activities"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "tasks", "{{task_id}}", "activities"]
             }
           }
         },
@@ -1553,14 +1301,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/activities?page=1&limit=20",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "activities"
-              ],
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "activities"],
               "query": [
                 {
                   "key": "page",
@@ -1592,15 +1334,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/dashboard/summary",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "dashboard",
-                "summary"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "dashboard", "summary"]
             }
           }
         },
@@ -1617,15 +1352,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/dashboard/summary?list_id={{list_id}}",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "dashboard",
-                "summary"
-              ],
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "dashboard", "summary"],
               "query": [
                 {
                   "key": "list_id",
@@ -1648,15 +1376,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/dashboard/progress?period=week",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "dashboard",
-                "progress"
-              ],
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "dashboard", "progress"],
               "query": [
                 {
                   "key": "period",
@@ -1680,15 +1401,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/dashboard/upcoming-deadlines",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "dashboard",
-                "upcoming-deadlines"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "dashboard", "upcoming-deadlines"]
             }
           }
         },
@@ -1705,15 +1419,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/dashboard/overdue-tasks",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "dashboard",
-                "overdue-tasks"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "dashboard", "overdue-tasks"]
             }
           }
         },
@@ -1730,15 +1437,8 @@
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/dashboard/priority-distribution",
-              "host": [
-                "{{base_url}}"
-              ],
-              "path": [
-                "api",
-                "v1",
-                "dashboard",
-                "priority-distribution"
-              ]
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "dashboard", "priority-distribution"]
             }
           }
         }
