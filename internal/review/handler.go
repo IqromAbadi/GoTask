@@ -1,7 +1,7 @@
 package review
 
 import (
-	"encoding/json"
+	"github.com/iqromabadi/gotask/internal/platform/util"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -43,7 +43,7 @@ func (h *Handler) SubmitReview(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req SubmitReviewRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}
@@ -119,7 +119,7 @@ func (h *Handler) Approve(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req ApproveReviewRequest
-	json.NewDecoder(r.Body).Decode(&req)
+	util.DecodeBody(r, &req)
 
 	result, err := h.service.Approve(r.Context(), reviewID, taskID, userID, req.ReviewNote)
 	if err != nil {
@@ -148,7 +148,7 @@ func (h *Handler) RequestChanges(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req RequestChangesRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}

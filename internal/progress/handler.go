@@ -1,7 +1,7 @@
 package progress
 
 import (
-	"encoding/json"
+	"github.com/iqromabadi/gotask/internal/platform/util"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -44,7 +44,7 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req CreateProgressRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}
@@ -128,7 +128,7 @@ func (h *Handler) UpdateNote(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req UpdateProgressNoteRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}

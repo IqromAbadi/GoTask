@@ -1,7 +1,7 @@
 package task
 
 import (
-	"encoding/json"
+	"github.com/iqromabadi/gotask/internal/platform/util"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -51,7 +51,7 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req CreateTaskRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}
@@ -134,7 +134,7 @@ func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req UpdateTaskRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}
@@ -200,7 +200,7 @@ func (h *Handler) UpdateStatus(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req UpdateStatusRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}
@@ -241,7 +241,7 @@ func (h *Handler) UpdatePriority(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req UpdatePriorityRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}

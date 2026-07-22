@@ -1,7 +1,7 @@
 package tasklist
 
 import (
-	"encoding/json"
+	"github.com/iqromabadi/gotask/internal/platform/util"
 	"log/slog"
 	"net/http"
 	"strings"
@@ -48,7 +48,7 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req CreateTaskListRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}
@@ -117,7 +117,7 @@ func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req UpdateTaskListRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}

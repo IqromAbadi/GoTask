@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"encoding/json"
+	"github.com/iqromabadi/gotask/internal/platform/util"
 	"errors"
 	"log/slog"
 	"net/http"
@@ -44,7 +44,7 @@ func (h *Handler) RegisterProtectedRoutes(r chi.Router) {
 // Register handles user registration.
 func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 	var req RegisterRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}
@@ -77,7 +77,7 @@ func (h *Handler) Register(w http.ResponseWriter, r *http.Request) {
 // Login handles user login.
 func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 	var req LoginRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}
@@ -104,7 +104,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 // Refresh handles refresh token rotation.
 func (h *Handler) Refresh(w http.ResponseWriter, r *http.Request) {
 	var req RefreshRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}
@@ -132,7 +132,7 @@ func (h *Handler) Refresh(w http.ResponseWriter, r *http.Request) {
 // Logout handles user logout.
 func (h *Handler) Logout(w http.ResponseWriter, r *http.Request) {
 	var req RefreshRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}
@@ -178,7 +178,7 @@ func (h *Handler) UpdateProfile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req UpdateProfileRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}
@@ -207,7 +207,7 @@ func (h *Handler) ChangePassword(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var req ChangePasswordRequest
-	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
+	if err := util.DecodeBody(r, &req); err != nil {
 		response.BadRequest(w, "Format request tidak valid")
 		return
 	}

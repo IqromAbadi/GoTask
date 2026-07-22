@@ -15,8 +15,12 @@
             "method": "GET",
             "url": {
               "raw": "{{base_url}}/health",
-              "host": ["{{base_url}}"],
-              "path": ["health"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "health"
+              ]
             }
           }
         }
@@ -31,16 +35,42 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Agung\",\n  \"email\": \"agung@example.com\",\n  \"password\": \"Password123!\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Agung",
+                  "type": "text"
+                },
+                {
+                  "key": "email",
+                  "value": "agung@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "Password123!",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/auth/register",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "auth", "register"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "register"
+              ]
             }
           }
         },
@@ -65,16 +95,37 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"agung@example.com\",\n  \"password\": \"Password123!\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "email",
+                  "value": "agung@example.com",
+                  "type": "text"
+                },
+                {
+                  "key": "password",
+                  "value": "Password123!",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/auth/login",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "auth", "login"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "login"
+              ]
             }
           }
         },
@@ -84,16 +135,32 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "refresh_token",
+                  "value": "{{refresh_token}}",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/auth/refresh",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "auth", "refresh"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "refresh"
+              ]
             }
           }
         },
@@ -103,16 +170,32 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"refresh_token\": \"{{refresh_token}}\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "refresh_token",
+                  "value": "{{refresh_token}}",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/auth/logout",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "auth", "logout"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "auth",
+                "logout"
+              ]
             }
           }
         }
@@ -127,12 +210,22 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/users/me",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "users", "me"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "me"
+              ]
             }
           }
         },
@@ -142,17 +235,41 @@
           "request": {
             "method": "PATCH",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Agung Updated\",\n  \"avatar_url\": \"https://example.com/avatar.png\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Agung Updated",
+                  "type": "text"
+                },
+                {
+                  "key": "avatar_url",
+                  "value": "https://example.com/avatar.png",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/users/me",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "users", "me"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "me"
+              ]
             }
           }
         },
@@ -162,17 +279,42 @@
           "request": {
             "method": "PATCH",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"current_password\": \"Password123!\",\n  \"new_password\": \"NewPassword456!\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "current_password",
+                  "value": "Password123!",
+                  "type": "text"
+                },
+                {
+                  "key": "new_password",
+                  "value": "NewPassword456!",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/users/me/password",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "users", "me", "password"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "me",
+                "password"
+              ]
             }
           }
         }
@@ -201,17 +343,40 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Sprint 1\",\n  \"description\": \"First sprint — authentication module\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Sprint 1",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "First sprint — authentication module",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/lists",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "lists"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lists"
+              ]
             }
           }
         },
@@ -221,12 +386,21 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "lists"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lists"
+              ]
             }
           }
         },
@@ -236,12 +410,22 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "lists", "{{list_id}}"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lists",
+                "{{list_id}}"
+              ]
             }
           }
         },
@@ -251,17 +435,41 @@
           "request": {
             "method": "PATCH",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Sprint 1 — Revised\",\n  \"description\": \"Updated description\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Sprint 1 — Revised",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Updated description",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "lists", "{{list_id}}"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lists",
+                "{{list_id}}"
+              ]
             }
           }
         },
@@ -271,12 +479,23 @@
           "request": {
             "method": "PATCH",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}/archive",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "lists", "{{list_id}}", "archive"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lists",
+                "{{list_id}}",
+                "archive"
+              ]
             }
           }
         },
@@ -286,12 +505,23 @@
           "request": {
             "method": "PATCH",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}/restore",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "lists", "{{list_id}}", "restore"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lists",
+                "{{list_id}}",
+                "restore"
+              ]
             }
           }
         },
@@ -301,12 +531,22 @@
           "request": {
             "method": "DELETE",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "lists", "{{list_id}}"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lists",
+                "{{list_id}}"
+              ]
             }
           }
         },
@@ -316,12 +556,23 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}/board",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "lists", "{{list_id}}", "board"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lists",
+                "{{list_id}}",
+                "board"
+              ]
             }
           }
         }
@@ -350,17 +601,62 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"Buat endpoint login\",\n  \"description\": \"Implementasi login dengan JWT\",\n  \"priority\": \"high\",\n  \"status\": \"todo\",\n  \"due_date\": \"2026-07-30\",\n  \"estimated_minutes\": 240\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Buat endpoint login",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Implementasi login dengan JWT",
+                  "type": "text"
+                },
+                {
+                  "key": "priority",
+                  "value": "high",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "todo",
+                  "type": "text"
+                },
+                {
+                  "key": "due_date",
+                  "value": "2026-07-30",
+                  "type": "text"
+                },
+                {
+                  "key": "estimated_minutes",
+                  "value": "240",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}/tasks",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "lists", "{{list_id}}", "tasks"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lists",
+                "{{list_id}}",
+                "tasks"
+              ]
             }
           }
         },
@@ -370,20 +666,59 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/lists/{{list_id}}/tasks?status=todo&priority=high&sort_by=created_at&sort_order=desc&page=1&limit=20",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "lists", "{{list_id}}", "tasks"],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "lists",
+                "{{list_id}}",
+                "tasks"
+              ],
               "query": [
-                { "key": "status", "value": "todo", "disabled": true },
-                { "key": "priority", "value": "high", "disabled": true },
-                { "key": "search", "value": "login", "disabled": true },
-                { "key": "sort_by", "value": "created_at", "disabled": true },
-                { "key": "sort_order", "value": "desc", "disabled": true },
-                { "key": "page", "value": "1", "disabled": true },
-                { "key": "limit", "value": "20", "disabled": true }
+                {
+                  "key": "status",
+                  "value": "todo",
+                  "disabled": true
+                },
+                {
+                  "key": "priority",
+                  "value": "high",
+                  "disabled": true
+                },
+                {
+                  "key": "search",
+                  "value": "login",
+                  "disabled": true
+                },
+                {
+                  "key": "sort_by",
+                  "value": "created_at",
+                  "disabled": true
+                },
+                {
+                  "key": "sort_order",
+                  "value": "desc",
+                  "disabled": true
+                },
+                {
+                  "key": "page",
+                  "value": "1",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "20",
+                  "disabled": true
+                }
               ]
             }
           }
@@ -394,12 +729,22 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}"
+              ]
             }
           }
         },
@@ -409,17 +754,46 @@
           "request": {
             "method": "PATCH",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"Buat endpoint login & register\",\n  \"description\": \"Updated description\",\n  \"priority\": \"urgent\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "title",
+                  "value": "Buat endpoint login & register",
+                  "type": "text"
+                },
+                {
+                  "key": "description",
+                  "value": "Updated description",
+                  "type": "text"
+                },
+                {
+                  "key": "priority",
+                  "value": "urgent",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}"
+              ]
             }
           }
         },
@@ -429,12 +803,22 @@
           "request": {
             "method": "DELETE",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}"
+              ]
             }
           }
         },
@@ -444,17 +828,37 @@
           "request": {
             "method": "PATCH",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": \"in_progress\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "status",
+                  "value": "in_progress",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/status",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "status"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "status"
+              ]
             }
           }
         },
@@ -464,17 +868,37 @@
           "request": {
             "method": "PATCH",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"priority\": \"urgent\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "priority",
+                  "value": "urgent",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/priority",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "priority"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "priority"
+              ]
             }
           }
         },
@@ -484,12 +908,23 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/reopen",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "reopen"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "reopen"
+              ]
             }
           }
         }
@@ -517,17 +952,42 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"progress\": 60,\n  \"note\": \"Endpoint login & register sudah selesai\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "progress",
+                  "value": "60",
+                  "type": "text"
+                },
+                {
+                  "key": "note",
+                  "value": "Endpoint login & register sudah selesai",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/progress",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "progress"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "progress"
+              ]
             }
           }
         },
@@ -537,17 +997,47 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"progress\": 40,\n  \"note\": \"Rollback — ditemukan bug di integrasi\",\n  \"allow_rollback\": true\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "progress",
+                  "value": "40",
+                  "type": "text"
+                },
+                {
+                  "key": "note",
+                  "value": "Rollback — ditemukan bug di integrasi",
+                  "type": "text"
+                },
+                {
+                  "key": "allow_rollback",
+                  "value": "true",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/progress",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "progress"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "progress"
+              ]
             }
           }
         },
@@ -557,12 +1047,23 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/progress",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "progress"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "progress"
+              ]
             }
           }
         },
@@ -572,12 +1073,24 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/progress/{{progress_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "progress", "{{progress_id}}"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "progress",
+                "{{progress_id}}"
+              ]
             }
           }
         },
@@ -587,17 +1100,38 @@
           "request": {
             "method": "PATCH",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"note\": \"Catatan tambahan...\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "note",
+                  "value": "Catatan tambahan...",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/progress/{{progress_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "progress", "{{progress_id}}"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "progress",
+                "{{progress_id}}"
+              ]
             }
           }
         },
@@ -607,12 +1141,24 @@
           "request": {
             "method": "DELETE",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/progress/{{progress_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "progress", "{{progress_id}}"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "progress",
+                "{{progress_id}}"
+              ]
             }
           }
         }
@@ -640,17 +1186,37 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"submission_note\": \"Semua endpoint auth selesai & sudah diuji\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "submission_note",
+                  "value": "Semua endpoint auth selesai & sudah diuji",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/submit-review",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "submit-review"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "submit-review"
+              ]
             }
           }
         },
@@ -660,12 +1226,23 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/reviews",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "reviews"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "reviews"
+              ]
             }
           }
         },
@@ -675,12 +1252,24 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/reviews/{{review_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "reviews", "{{review_id}}"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "reviews",
+                "{{review_id}}"
+              ]
             }
           }
         },
@@ -690,17 +1279,39 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"review_note\": \"Semua acceptance criteria terpenuhi. Good job!\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "review_note",
+                  "value": "Semua acceptance criteria terpenuhi. Good job!",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/reviews/{{review_id}}/approve",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "reviews", "{{review_id}}", "approve"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "reviews",
+                "{{review_id}}",
+                "approve"
+              ]
             }
           }
         },
@@ -710,17 +1321,39 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"review_note\": \"Tambahkan handling saat refresh token expired\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "review_note",
+                  "value": "Tambahkan handling saat refresh token expired",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/reviews/{{review_id}}/request-changes",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "reviews", "{{review_id}}", "request-changes"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "reviews",
+                "{{review_id}}",
+                "request-changes"
+              ]
             }
           }
         }
@@ -748,17 +1381,37 @@
           "request": {
             "method": "POST",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"content\": \"Gunakan refresh token rotation untuk tingkatkan keamanan\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "content",
+                  "value": "Gunakan refresh token rotation untuk tingkatkan keamanan",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/comments",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "comments"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "comments"
+              ]
             }
           }
         },
@@ -768,12 +1421,23 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/comments",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "comments"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "comments"
+              ]
             }
           }
         },
@@ -783,17 +1447,38 @@
           "request": {
             "method": "PATCH",
             "header": [
-              { "key": "Content-Type", "value": "application/json" },
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "body": {
-              "mode": "raw",
-              "raw": "{\n  \"content\": \"Komentar sudah diedit...\"\n}"
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "content",
+                  "value": "Komentar sudah diedit...",
+                  "type": "text"
+                }
+              ]
             },
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/comments/{{comment_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "comments", "{{comment_id}}"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "comments",
+                "{{comment_id}}"
+              ]
             }
           }
         },
@@ -803,12 +1488,24 @@
           "request": {
             "method": "DELETE",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/comments/{{comment_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "comments", "{{comment_id}}"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "comments",
+                "{{comment_id}}"
+              ]
             }
           }
         }
@@ -823,12 +1520,23 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/tasks/{{task_id}}/activities",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "tasks", "{{task_id}}", "activities"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "tasks",
+                "{{task_id}}",
+                "activities"
+              ]
             }
           }
         },
@@ -838,15 +1546,30 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/activities?page=1&limit=20",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "activities"],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "activities"
+              ],
               "query": [
-                { "key": "page", "value": "1" },
-                { "key": "limit", "value": "20" }
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
               ]
             }
           }
@@ -862,12 +1585,22 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/dashboard/summary",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "dashboard", "summary"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "dashboard",
+                "summary"
+              ]
             }
           }
         },
@@ -877,14 +1610,27 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/dashboard/summary?list_id={{list_id}}",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "dashboard", "summary"],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "dashboard",
+                "summary"
+              ],
               "query": [
-                { "key": "list_id", "value": "{{list_id}}" }
+                {
+                  "key": "list_id",
+                  "value": "{{list_id}}"
+                }
               ]
             }
           }
@@ -895,14 +1641,28 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/dashboard/progress?period=week",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "dashboard", "progress"],
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "dashboard",
+                "progress"
+              ],
               "query": [
-                { "key": "period", "value": "week", "description": "day | week | month | year" }
+                {
+                  "key": "period",
+                  "value": "week",
+                  "description": "day | week | month | year"
+                }
               ]
             }
           }
@@ -913,12 +1673,22 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/dashboard/upcoming-deadlines",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "dashboard", "upcoming-deadlines"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "dashboard",
+                "upcoming-deadlines"
+              ]
             }
           }
         },
@@ -928,12 +1698,22 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/dashboard/overdue-tasks",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "dashboard", "overdue-tasks"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "dashboard",
+                "overdue-tasks"
+              ]
             }
           }
         },
@@ -943,12 +1723,22 @@
           "request": {
             "method": "GET",
             "header": [
-              { "key": "Authorization", "value": "Bearer {{token}}" }
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}"
+              }
             ],
             "url": {
               "raw": "{{base_url}}/api/v1/dashboard/priority-distribution",
-              "host": ["{{base_url}}"],
-              "path": ["api", "v1", "dashboard", "priority-distribution"]
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "dashboard",
+                "priority-distribution"
+              ]
             }
           }
         }
