@@ -4,21 +4,21 @@ import "time"
 
 // CreateTaskRequest is the DTO for creating a task.
 type CreateTaskRequest struct {
-	Title        string     `json:"title" validate:"required"`
-	Description  *string    `json:"description"`
-	Priority     string     `json:"priority"`
-	Status       string     `json:"status"`
-	DueDate      *time.Time `json:"due_date"`
-	EstimatedMin *int       `json:"estimated_minutes"`
+	Title        string  `json:"title" validate:"required"`
+	Description  *string `json:"description"`
+	Priority     string  `json:"priority"`
+	Status       string  `json:"status"`
+	DueDate      *string `json:"due_date"`
+	EstimatedMin *int    `json:"estimated_minutes"`
 }
 
 // UpdateTaskRequest is the DTO for updating a task.
 type UpdateTaskRequest struct {
-	Title        string     `json:"title" validate:"required"`
-	Description  *string    `json:"description"`
-	Priority     string     `json:"priority"`
-	DueDate      *time.Time `json:"due_date"`
-	EstimatedMin *int       `json:"estimated_minutes"`
+	Title        string  `json:"title" validate:"required"`
+	Description  *string `json:"description"`
+	Priority     string  `json:"priority"`
+	DueDate      *string `json:"due_date"`
+	EstimatedMin *int    `json:"estimated_minutes"`
 }
 
 // UpdateStatusRequest is the DTO for changing task status.

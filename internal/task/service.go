@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"time"
 
 	"github.com/google/uuid"
 
@@ -51,7 +52,7 @@ func (s *Service) Create(ctx context.Context, listID, userID uuid.UUID, req Crea
 		Description:  req.Description,
 		Status:       status,
 		Priority:     priority,
-		DueDate:      req.DueDate,
+		DueDate:      parseDate(req.DueDate),
 		EstimatedMin: req.EstimatedMin,
 		Progress:     0,
 	}
@@ -97,7 +98,7 @@ func (s *Service) Update(ctx context.Context, id, listID uuid.UUID, req UpdateTa
 		Title:        req.Title,
 		Description:  req.Description,
 		Priority:     req.Priority,
-		DueDate:      req.DueDate,
+		DueDate:      parseDate(req.DueDate),
 		EstimatedMin: req.EstimatedMin,
 	}
 
@@ -198,6 +199,19 @@ func (s *Service) UpdateStatus(ctx context.Context, id, listID uuid.UUID, newSta
 	task, err := s.repo.UpdateStatus(ctx, id, listID, newStatus)
 	if err != nil {
 		return nil, fmt.Errorf("update status: %w", err)
+	}
+
+	// Set started_at if moving to in_progress for the first time
+	if newStatus == "in_progress" && current.StartedAt == nil {
+		now := time.Now().UTC()
+		_, err = s.db.ExecContext(ctx,
+			`UPDATE tasks SET started_at = $1 WHERE id = $2 AND started_at IS NULL`,
+			now, id,
+		)
+		if err != nil {
+			return nil, fmt.Errorf("set started_at: %w", err)
+		}
+		task.StartedAt = &now
 	}
 
 	// Log activity
@@ -302,4 +316,16 @@ func isValidTransition(from, to string) bool {
 		}
 	}
 	return false
+}
+
+// parseDate parses a date string in YYYY-MM-DD format to time.Time.
+func parseDate(dateStr *string) *time.Time {
+	if dateStr == nil || *dateStr == "" {
+		return nil
+	}
+	t, err := time.Parse("2006-01-02", *dateStr)
+	if err != nil {
+		return nil
+	}
+	return &t
 }

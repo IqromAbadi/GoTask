@@ -111,10 +111,11 @@ func (r *postgresRepository) Update(ctx context.Context, t *Task) error {
 }
 
 func (r *postgresRepository) UpdateStatus(ctx context.Context, id, listID uuid.UUID, status string) (*Task, error) {
+	// Use a simple query without CASE WHEN to avoid pg type inference issues
+	// Handle started_at in service layer if needed
 	query := `
 		UPDATE tasks
-		SET status = $3, updated_at = NOW(), 
-		    started_at = COALESCE(started_at, CASE WHEN $3 = 'in_progress' THEN NOW() ELSE started_at END)
+		SET status = $3, updated_at = NOW()
 		WHERE id = $1 AND list_id = $2
 		RETURNING id, list_id, created_by, title, description, status, priority, 
 		          progress, due_date, estimated_minutes, started_at, completed_at, created_at, updated_at, deleted_at`

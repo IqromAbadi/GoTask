@@ -841,21 +841,25 @@ make fmt              # Format code
 **Penyebab:** Server sebelumnya masih berjalan di background.
 
 **Cek apakah port sedang dipakai:**
+
 ```bash
 lsof -i :8080
 ```
 
 **Solusi — matikan server lama dulu:**
+
 ```bash
 pkill -f gotask
 ```
 
 Lalu jalankan ulang:
+
 ```bash
 go run ./cmd/api
 ```
 
 **Atau gunakan satu command untuk restart otomatis:**
+
 ```bash
 pkill -f gotask 2>/dev/null; sleep 1; \
   export GOPATH=$HOME/go GOMODCACHE=$HOME/go/pkg/mod && \
@@ -870,16 +874,19 @@ pkill -f gotask 2>/dev/null; sleep 1; \
 **Penyebab:** Migrasi belum dijalankan atau gagal.
 
 **Cek status migrasi:**
+
 ```bash
 psql -U gotask -d gotask -c "SELECT * FROM schema_migrations;"
 ```
 
 **Cek daftar tabel:**
+
 ```bash
 psql -U gotask -d gotask -c "\dt"
 ```
 
 **Solusi — jalankan migrasi:**
+
 ```bash
 export $(grep -v '^#' .env | xargs)
 migrate -path db/migrations -database "$DATABASE_URL" up
@@ -890,21 +897,25 @@ migrate -path db/migrations -database "$DATABASE_URL" up
 ### ❌ PostgreSQL tidak berjalan (`connection refused`)
 
 **Cek status PostgreSQL:**
+
 ```bash
 pg_isready
 ```
 
 **Solusi — start PostgreSQL (Homebrew):**
+
 ```bash
 brew services start postgresql@16
 ```
 
 **Cek apakah user & database sudah dibuat:**
+
 ```bash
 psql -U gotask -d gotask -c "\dt"
 ```
 
 Jika belum, buat database:
+
 ```bash
 psql -d postgres -c "CREATE USER gotask WITH PASSWORD 'gotask';"
 psql -d postgres -c "CREATE DATABASE gotask OWNER gotask;"
@@ -917,12 +928,14 @@ psql -d postgres -c "CREATE DATABASE gotask OWNER gotask;"
 **Penyebab:** `GOPATH` atau `GOMODCACHE` mengarah ke volume yang tidak bisa ditulis.
 
 **Solusi — arahkan ke home directory:**
+
 ```bash
 export GOPATH=$HOME/go
 export GOMODCACHE=$HOME/go/pkg/mod
 ```
 
 Tambahkan ke `~/.zshrc` agar permanen:
+
 ```bash
 echo 'export GOPATH=$HOME/go' >> ~/.zshrc
 echo 'export GOMODCACHE=$HOME/go/pkg/mod' >> ~/.zshrc
@@ -938,6 +951,7 @@ source ~/.zshrc
 **Format yang benar:** `"YYYY-MM-DD"` (contoh: `"2026-07-30"`)
 
 **Contoh benar:**
+
 ```json
 {
   "title": "Task baru",
@@ -946,6 +960,7 @@ source ~/.zshrc
 ```
 
 **Contoh salah:**
+
 ```json
 {
   "due_date": "2026-07-30T00:00:00Z"   ← JANGAN pakai format ini
