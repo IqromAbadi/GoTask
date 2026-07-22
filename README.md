@@ -90,21 +90,21 @@ gotask/
 
 Bayangkan GoTask seperti sebuah **gedung perkantoran**:
 
-| Folder | Ibarat | Fungsi |
-|--------|--------|--------|
-| `cmd/api/main.go` | 🚪 **Pintu masuk** | Tombol START untuk menjalankan aplikasi |
-| `internal/platform/` | ⚙️ **Ruang utilitas** | Listrik, air, AC (config, logger, database) |
-| `internal/middleware/` | 🛂 **Pos satpam** | Pengecekan sebelum masuk (auth, rate limit, CORS) |
-| `internal/auth/` | 🔑 **Ruang login** | Register, login, lupa password |
-| `internal/tasklist/` | 📋 **Papan kerja** | Tempat menempel daftar tugas |
-| `internal/task/` | ✅ **Kartu tugas** | Satu per satu pekerjaan yang harus diselesaikan |
-| `internal/progress/` | 📊 **Laporan harian** | Catatan "sudah selesai berapa persen" |
-| `internal/review/` | 🔍 **Ruang pemeriksa** | Atasan periksa hasil kerja, approve atau minta revisi |
-| `internal/comment/` | 💬 **Post-it note** | Tempelan diskusi di setiap kartu tugas |
-| `internal/activity/` | 📜 **Buku sejarah** | Catatan otomatis semua perubahan yang terjadi |
-| `internal/dashboard/` | 📈 **Layar ringkasan** | Grafik dan angka rekapitulasi |
-| `db/migrations/` | 📝 **Cetak biru database** | Skema tabel yang bisa di-*upgrade* |
-| `db/queries/` | 📄 **Kumpulan perintah SQL** | Mentahan query yang akan di-generate oleh sqlc |
+| Folder                 | Ibarat                       | Fungsi                                                |
+| ---------------------- | ---------------------------- | ----------------------------------------------------- |
+| `cmd/api/main.go`      | 🚪 **Pintu masuk**           | Tombol START untuk menjalankan aplikasi               |
+| `internal/platform/`   | ⚙️ **Ruang utilitas**        | Listrik, air, AC (config, logger, database)           |
+| `internal/middleware/` | 🛂 **Pos satpam**            | Pengecekan sebelum masuk (auth, rate limit, CORS)     |
+| `internal/auth/`       | 🔑 **Ruang login**           | Register, login, lupa password                        |
+| `internal/tasklist/`   | 📋 **Papan kerja**           | Tempat menempel daftar tugas                          |
+| `internal/task/`       | ✅ **Kartu tugas**           | Satu per satu pekerjaan yang harus diselesaikan       |
+| `internal/progress/`   | 📊 **Laporan harian**        | Catatan "sudah selesai berapa persen"                 |
+| `internal/review/`     | 🔍 **Ruang pemeriksa**       | Atasan periksa hasil kerja, approve atau minta revisi |
+| `internal/comment/`    | 💬 **Post-it note**          | Tempelan diskusi di setiap kartu tugas                |
+| `internal/activity/`   | 📜 **Buku sejarah**          | Catatan otomatis semua perubahan yang terjadi         |
+| `internal/dashboard/`  | 📈 **Layar ringkasan**       | Grafik dan angka rekapitulasi                         |
+| `db/migrations/`       | 📝 **Cetak biru database**   | Skema tabel yang bisa di-_upgrade_                    |
+| `db/queries/`          | 📄 **Kumpulan perintah SQL** | Mentahan query yang akan di-generate oleh sqlc        |
 
 ---
 
@@ -125,14 +125,14 @@ Setiap modul (seperti `auth/`, `task/`, dll.) memiliki **6 file standar** yang b
 └──────────────────────────────────────────────────────────────┘
 ```
 
-| File | Analogi Sederhana | Isinya |
-|------|-------------------|--------|
-| `model.go` | 🧁 **Cetakan kue** | Struktur data asli (ID, nama, email, password, dll.) |
-| `dto.go` | 📝 **Formulir** | Data yang dikirim/diterima user (Request & Response) |
-| `repository.go` | 📜 **Kontrak kerja** | Interface — janji method apa saja yang harus ada |
-| `repository_impl.go` | 👷 **Pelaksana** | Kode SQL sungguhan (INSERT, SELECT, UPDATE, DELETE) |
-| `service.go` | 👔 **Manager** | Aturan bisnis: validasi, kalkulasi, pengambilan keputusan |
-| `handler.go` | 📞 **Resepsionis** | Terima HTTP request → panggil service → kirim JSON response |
+| File                 | Analogi Sederhana    | Isinya                                                      |
+| -------------------- | -------------------- | ----------------------------------------------------------- |
+| `model.go`           | 🧁 **Cetakan kue**   | Struktur data asli (ID, nama, email, password, dll.)        |
+| `dto.go`             | 📝 **Formulir**      | Data yang dikirim/diterima user (Request & Response)        |
+| `repository.go`      | 📜 **Kontrak kerja** | Interface — janji method apa saja yang harus ada            |
+| `repository_impl.go` | 👷 **Pelaksana**     | Kode SQL sungguhan (INSERT, SELECT, UPDATE, DELETE)         |
+| `service.go`         | 👔 **Manager**       | Aturan bisnis: validasi, kalkulasi, pengambilan keputusan   |
+| `handler.go`         | 📞 **Resepsionis**   | Terima HTTP request → panggil service → kirim JSON response |
 
 > **💡 Kenapa dipisah?** Supaya kalau ada perubahan (misal ganti database dari PostgreSQL ke MySQL), kamu cukup ganti `repository_impl.go` saja. File lain tidak perlu disentuh!
 
@@ -153,18 +153,18 @@ $ go mod init github.com/namamu/gotask
 
 **Jangan dibalik urutannya!** Karena setiap langkah bergantung pada langkah sebelumnya:
 
-| No | File | Kenapa Harus Duluan? |
-|----|------|----------------------|
-| 1 | `config.go` | Semua file butuh pengaturan (port, secret key, database URL) |
-| 2 | `logger.go` | Supaya bisa mencatat error sejak awal development |
-| 3 | `postgres.go` | Semua data disimpan di database, wajib connect dulu |
-| 4 | `response.go` | Semua jawaban ke user harus seragam formatnya |
-| 5 | `validator.go` | Semua input user harus divalidasi |
-| 6 | Middleware (8 file) | "Gerbang" pengecekan sebelum request masuk ke handler |
-| 7 | File migrasi `.sql` | Tabel harus sudah dibuat sebelum bisa menyimpan data |
-| 8 | File query `.sql` | Repository butuh query SQL yang sudah siap |
-| 9 | `main.go` | "Otak" yang merangkai semua komponen menjadi satu |
-| 10 | Dockerfile, docker-compose, Makefile | Untuk deployment dan kemudahan development |
+| No  | File                                 | Kenapa Harus Duluan?                                         |
+| --- | ------------------------------------ | ------------------------------------------------------------ |
+| 1   | `config.go`                          | Semua file butuh pengaturan (port, secret key, database URL) |
+| 2   | `logger.go`                          | Supaya bisa mencatat error sejak awal development            |
+| 3   | `postgres.go`                        | Semua data disimpan di database, wajib connect dulu          |
+| 4   | `response.go`                        | Semua jawaban ke user harus seragam formatnya                |
+| 5   | `validator.go`                       | Semua input user harus divalidasi                            |
+| 6   | Middleware (8 file)                  | "Gerbang" pengecekan sebelum request masuk ke handler        |
+| 7   | File migrasi `.sql`                  | Tabel harus sudah dibuat sebelum bisa menyimpan data         |
+| 8   | File query `.sql`                    | Repository butuh query SQL yang sudah siap                   |
+| 9   | `main.go`                            | "Otak" yang merangkai semua komponen menjadi satu            |
+| 10  | Dockerfile, docker-compose, Makefile | Untuk deployment dan kemudahan development                   |
 
 #### 🔰 FASE 2: Modul Authentication (Login Dulu!)
 
@@ -172,16 +172,16 @@ Ini modul **paling kritis** — karena SEMUA modul lain butuh user yang sudah lo
 
 **Urutan dalam 1 modul (Rumus 6M):**
 
-| Urutan | Pertanyaan Kunci | File |
-|--------|------------------|------|
-| **M1** | "Datanya bentuknya gimana?" | `model.go` |
-| **M2** | "User ngirim/terima data apa?" | `dto.go` |
+| Urutan | Pertanyaan Kunci                | File                        |
+| ------ | ------------------------------- | --------------------------- |
+| **M1** | "Datanya bentuknya gimana?"     | `model.go`                  |
+| **M2** | "User ngirim/terima data apa?"  | `dto.go`                    |
 | **M3** | "Fitur apa saja yang tersedia?" | `repository.go` (interface) |
-| **M4** | "SQL-nya gimana?" | `repository_impl.go` |
-| **M5** | "Aturan mainnya apa?" | `service.go` |
-| **M6** | "Gimana terima request HTTP?" | `handler.go` |
-| ⚠️ | **DAFTARKAN KE `main.go`!** | Edit `main.go` |
-| ✅ | Tes unit | `service_test.go` |
+| **M4** | "SQL-nya gimana?"               | `repository_impl.go`        |
+| **M5** | "Aturan mainnya apa?"           | `service.go`                |
+| **M6** | "Gimana terima request HTTP?"   | `handler.go`                |
+| ⚠️     | **DAFTARKAN KE `main.go`!**     | Edit `main.go`              |
+| ✅     | Tes unit                        | `service_test.go`           |
 
 #### 🔰 FASE 3–6: Modul Berikutnya (Pola Sama)
 
@@ -198,13 +198,13 @@ Phase 6: comment → dashboard     (dashboard baca agregat dari task)
 
 ### ❌ 5 Kesalahan Umum Pemula (Jangan Ditiru!)
 
-| # | Kesalahan | Akibatnya |
-|---|-----------|-----------|
-| 1 | **Bikin `handler.go` duluan** sebelum `repository.go` | Bingung sendiri: "datanya dari mana?!" |
-| 2 | **Skip bikin interface** (`repository.go`) | Susah ganti database & susah bikin unit test |
-| 3 | **Lupa daftarin ke `main.go`** | Fitur sudah jadi 100% tapi tidak jalan 😭 |
-| 4 | **Nulis SQL langsung di `handler.go`** | Kode berantakan, rawan SQL injection, susah di-*debug* |
-| 5 | **Tidak pakai database transaction** | Data bisa "setengah jadi" kalau terjadi error di tengah jalan |
+| #   | Kesalahan                                             | Akibatnya                                                     |
+| --- | ----------------------------------------------------- | ------------------------------------------------------------- |
+| 1   | **Bikin `handler.go` duluan** sebelum `repository.go` | Bingung sendiri: "datanya dari mana?!"                        |
+| 2   | **Skip bikin interface** (`repository.go`)            | Susah ganti database & susah bikin unit test                  |
+| 3   | **Lupa daftarin ke `main.go`**                        | Fitur sudah jadi 100% tapi tidak jalan 😭                     |
+| 4   | **Nulis SQL langsung di `handler.go`**                | Kode berantakan, rawan SQL injection, susah di-_debug_        |
+| 5   | **Tidak pakai database transaction**                  | Data bisa "setengah jadi" kalau terjadi error di tengah jalan |
 
 ---
 
@@ -240,7 +240,7 @@ graph TD
     C9 --> D{Fase 1 ceklis}
     D -->|Lulus| E[FASE 2: Auth Module]
     D -->|Error| C3
-    
+
     E --> E1[model.go]
     E1 --> E2[dto.go]
     E2 --> E3[repository.go]
@@ -250,10 +250,10 @@ graph TD
     E6 --> E7[Daftar ke main.go]
     E7 --> E8[service_test.go]
     E8 --> F{Fase 2 ceklis}
-    
+
     F -->|Lulus| G[FASE 3-6: Modul Lainnya]
     F -->|Error| E4
-    
+
     G --> G1[tasklist]
     G1 --> G2[task]
     G2 --> G3[progress]
@@ -261,7 +261,7 @@ graph TD
     G4 --> G5[review]
     G5 --> G6[comment]
     G6 --> G7[dashboard]
-    
+
     G7 --> H[SELESAI 🎉]
 ```
 
@@ -273,42 +273,50 @@ graph TD
 <summary><b>Q: Kenapa harus pakai interface di repository?</b></summary>
 
 **A:** Supaya kode mudah diuji (unit test). Saat testing, kita bisa pakai repository "palsu" (mock) yang tidak benar-benar menyimpan ke database. Juga memudahkan kalau suatu saat ingin ganti database (dari PostgreSQL ke MySQL, misalnya) — cukup ganti `repository_impl.go`, file lain tidak perlu diubah.
+
 </details>
 
 <details>
 <summary><b>Q: Kenapa password harus di-hash? Kenapa tidak disimpan apa adanya?</b></summary>
 
 **A:** Kalau database bocor, penyerang tidak bisa langsung tahu password asli user. Hashing itu satu arah — dari password jadi hash gampang, tapi dari hash kembali ke password hampir mustahil. bcrypt bahkan sengaja dibuat lambat supaya penyerang tidak bisa "menebak" password secara brutal (brute force).
+
 </details>
 
 <details>
 <summary><b>Q: Bedanya access token dan refresh token apa?</b></summary>
 
-**A:** Ibarat kunci hotel. **Access token** = kunci kamar, berlaku sebentar (15 menit). Kalau hilang, pencuri hanya bisa akses sebentar. **Refresh token** = kartu identitas di resepsionis, berlaku lama (30 hari) untuk minta kunci baru tanpa perlu login ulang. Refresh token juga di-*rotate* (diganti setiap kali dipakai) untuk mencegah pencurian.
+**A:** Ibarat kunci hotel. **Access token** = kunci kamar, berlaku sebentar (15 menit). Kalau hilang, pencuri hanya bisa akses sebentar. **Refresh token** = kartu identitas di resepsionis, berlaku lama (30 hari) untuk minta kunci baru tanpa perlu login ulang. Refresh token juga di-_rotate_ (diganti setiap kali dipakai) untuk mencegah pencurian.
+
 </details>
 
 <details>
 <summary><b>Q: Soft delete itu apa? Kenapa tidak hard delete saja?</b></summary>
 
 **A:** Soft delete = data tidak benar-benar dihapus, hanya diberi tanda `deleted_at = sekarang`. Ini penting supaya: (1) data bisa dikembalikan kalau tidak sengaja terhapus, (2) activity log tetap punya referensi ke task yang "dihapus", (3) memenuhi kebutuhan audit trail.
+
 </details>
 
 <details>
 <summary><b>Q: Kenapa setiap query harus menyertakan `user_id`?</b></summary>
 
 **A:** Ini disebut **ownership authorization**. Meskipun seorang user tahu UUID task milik orang lain, dia tetap tidak bisa mengaksesnya karena query selalu mengecek: "apakah user ini pemilik task list yang menaungi task tersebut?" Contoh:
+
 ```sql
 SELECT * FROM tasks t
 JOIN task_lists tl ON tl.id = t.list_id
 WHERE t.id = $1 AND tl.user_id = $2  -- ← BARIS INI KRUSIAL!
 ```
+
 Tanpa pengecekan ini, user A bisa membaca data user B hanya dengan menebak UUID.
+
 </details>
 
 <details>
 <summary><b>Q: Gimana cara nambah fitur baru?</b></summary>
 
 **A:** Ikuti Rumus 6M:
+
 1. Tentukan dulu bentuk datanya → `model.go`
 2. Buat formulir request/response → `dto.go`
 3. Tentukan method di interface → `repository.go`
@@ -820,32 +828,32 @@ Tests cover:
 
 Biar tidak bingung dengan istilah-istilah teknis, berikut daftar kata yang sering muncul:
 
-| Istilah | Arti Sederhana |
-|---------|----------------|
-| **API** | Application Programming Interface — jembatan antara frontend dan backend |
-| **REST** | Gaya arsitektur API yang pakai method HTTP (GET, POST, PUT, DELETE) |
-| **JSON** | Format data ringan yang mudah dibaca manusia dan mesin |
-| **JWT** | JSON Web Token — "kartu identitas" digital untuk user yang sudah login |
-| **Access Token** | Token jangka pendek (15 menit) untuk akses API |
-| **Refresh Token** | Token jangka panjang (30 hari) untuk minta access token baru |
-| **Middleware** | "Pos pengecekan" yang dilewati setiap request sebelum sampai ke handler |
-| **Handler** | Fungsi yang menangani HTTP request di endpoint tertentu |
-| **Service** | Lapisan yang berisi aturan bisnis (business logic) |
-| **Repository** | Lapisan yang berhubungan langsung dengan database |
-| **DTO** | Data Transfer Object — struct untuk data yang masuk/keluar API |
-| **Model** | Struct yang merepresentasikan tabel di database |
-| **Interface** | "Kontrak" di Go — mendefinisikan method apa saja yang harus ada |
-| **Migration** | Cara mengubah struktur database secara terstruktur dan bisa di-*rollback* |
-| **sqlc** | Tool yang mengubah file SQL biasa menjadi kode Go yang siap pakai |
-| **UUID** | Universally Unique Identifier — ID unik sepanjang masa, tidak akan bentrok |
-| **Soft Delete** | Menghapus data dengan menandai, bukan menghapus permanen |
-| **Transaction** | Operasi database yang "all or nothing" — semua sukses atau semua gagal |
-| **Hash** | Mengubah data (password) menjadi string acak yang tidak bisa dikembalikan |
-| **bcrypt** | Algoritma hashing khusus password yang sengaja dibuat lambat |
-| **CORS** | Cross-Origin Resource Sharing — aturan domain mana yang boleh akses API |
-| **Rate Limiting** | Membatasi jumlah request per detik untuk mencegah penyalahgunaan |
-| **Docker** | Wadah untuk menjalankan aplikasi secara terisolasi dan konsisten |
-| **Docker Compose** | Cara menjalankan banyak container Docker sekaligus (API + PostgreSQL) |
+| Istilah            | Arti Sederhana                                                             |
+| ------------------ | -------------------------------------------------------------------------- |
+| **API**            | Application Programming Interface — jembatan antara frontend dan backend   |
+| **REST**           | Gaya arsitektur API yang pakai method HTTP (GET, POST, PUT, DELETE)        |
+| **JSON**           | Format data ringan yang mudah dibaca manusia dan mesin                     |
+| **JWT**            | JSON Web Token — "kartu identitas" digital untuk user yang sudah login     |
+| **Access Token**   | Token jangka pendek (15 menit) untuk akses API                             |
+| **Refresh Token**  | Token jangka panjang (30 hari) untuk minta access token baru               |
+| **Middleware**     | "Pos pengecekan" yang dilewati setiap request sebelum sampai ke handler    |
+| **Handler**        | Fungsi yang menangani HTTP request di endpoint tertentu                    |
+| **Service**        | Lapisan yang berisi aturan bisnis (business logic)                         |
+| **Repository**     | Lapisan yang berhubungan langsung dengan database                          |
+| **DTO**            | Data Transfer Object — struct untuk data yang masuk/keluar API             |
+| **Model**          | Struct yang merepresentasikan tabel di database                            |
+| **Interface**      | "Kontrak" di Go — mendefinisikan method apa saja yang harus ada            |
+| **Migration**      | Cara mengubah struktur database secara terstruktur dan bisa di-_rollback_  |
+| **sqlc**           | Tool yang mengubah file SQL biasa menjadi kode Go yang siap pakai          |
+| **UUID**           | Universally Unique Identifier — ID unik sepanjang masa, tidak akan bentrok |
+| **Soft Delete**    | Menghapus data dengan menandai, bukan menghapus permanen                   |
+| **Transaction**    | Operasi database yang "all or nothing" — semua sukses atau semua gagal     |
+| **Hash**           | Mengubah data (password) menjadi string acak yang tidak bisa dikembalikan  |
+| **bcrypt**         | Algoritma hashing khusus password yang sengaja dibuat lambat               |
+| **CORS**           | Cross-Origin Resource Sharing — aturan domain mana yang boleh akses API    |
+| **Rate Limiting**  | Membatasi jumlah request per detik untuk mencegah penyalahgunaan           |
+| **Docker**         | Wadah untuk menjalankan aplikasi secara terisolasi dan konsisten           |
+| **Docker Compose** | Cara menjalankan banyak container Docker sekaligus (API + PostgreSQL)      |
 
 ---
 
@@ -854,12 +862,14 @@ Biar tidak bingung dengan istilah-istilah teknis, berikut daftar kata yang serin
 ### Untuk Pemula yang Ingin Belajar
 
 1. **Clone repository ini**
+
    ```bash
    git clone https://github.com/IqromAbadi/GoTask.git
    cd GoTask
    ```
 
 2. **Jalankan dengan Docker Compose** (cara termudah)
+
    ```bash
    cp .env.example .env
    docker compose up -d
@@ -874,14 +884,14 @@ Biar tidak bingung dengan istilah-istilah teknis, berikut daftar kata yang serin
 
 ### Ide untuk Latihan (Coba Implementasikan Sendiri!)
 
-| Tingkat | Ide Fitur | Modul yang Disentuh |
-|---------|-----------|---------------------|
-| 🟢 Mudah | Tambah field `color` di task list | `tasklist/` |
-| 🟢 Mudah | Ganti pesan error ke Bahasa Inggris | `response.go` + semua `handler.go` |
-| 🟡 Menengah | Tambah fitur tag/label di task | `task/` + migration baru |
-| 🟡 Menengah | Assign task ke user lain (multi-user) | `task/` + `auth/` |
-| 🔴 Sulit | Notifikasi real-time via WebSocket | Module baru `notification/` |
-| 🔴 Sulit | Upload file attachment di task | Module baru `attachment/` |
+| Tingkat     | Ide Fitur                             | Modul yang Disentuh                |
+| ----------- | ------------------------------------- | ---------------------------------- |
+| 🟢 Mudah    | Tambah field `color` di task list     | `tasklist/`                        |
+| 🟢 Mudah    | Ganti pesan error ke Bahasa Inggris   | `response.go` + semua `handler.go` |
+| 🟡 Menengah | Tambah fitur tag/label di task        | `task/` + migration baru           |
+| 🟡 Menengah | Assign task ke user lain (multi-user) | `task/` + `auth/`                  |
+| 🔴 Sulit    | Notifikasi real-time via WebSocket    | Module baru `notification/`        |
+| 🔴 Sulit    | Upload file attachment di task        | Module baru `attachment/`          |
 
 ### Aturan Kontribusi
 
@@ -896,24 +906,24 @@ Biar tidak bingung dengan istilah-istilah teknis, berikut daftar kata yang serin
 
 ## 📊 Status Project
 
-| Kategori | Status |
-|----------|--------|
-| Authentication | ✅ Selesai |
-| User Profile | ✅ Selesai |
-| Task List CRUD | ✅ Selesai |
-| Task CRUD | ✅ Selesai |
-| Task Workflow | ✅ Selesai |
-| Progress Tracking | ✅ Selesai |
-| Review System | ✅ Selesai |
-| Comments | ✅ Selesai |
-| Activity Log | ✅ Selesai |
-| Dashboard | ✅ Selesai |
-| Unit Tests | ✅ 40+ test case |
-| Docker Support | ✅ Selesai |
-| API Documentation | ✅ README + OpenAPI |
-| Multi-user Support | 🔜 Coming Soon |
-| File Attachments | 🔜 Coming Soon |
-| Real-time Notification | 🔜 Coming Soon |
+| Kategori               | Status              |
+| ---------------------- | ------------------- |
+| Authentication         | ✅ Selesai          |
+| User Profile           | ✅ Selesai          |
+| Task List CRUD         | ✅ Selesai          |
+| Task CRUD              | ✅ Selesai          |
+| Task Workflow          | ✅ Selesai          |
+| Progress Tracking      | ✅ Selesai          |
+| Review System          | ✅ Selesai          |
+| Comments               | ✅ Selesai          |
+| Activity Log           | ✅ Selesai          |
+| Dashboard              | ✅ Selesai          |
+| Unit Tests             | ✅ 40+ test case    |
+| Docker Support         | ✅ Selesai          |
+| API Documentation      | ✅ README + OpenAPI |
+| Multi-user Support     | 🔜 Coming Soon      |
+| File Attachments       | 🔜 Coming Soon      |
+| Real-time Notification | 🔜 Coming Soon      |
 
 ---
 
