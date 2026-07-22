@@ -1,0 +1,53 @@
+{
+  "name": "GoTask Local",
+  "values": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "refresh_token",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "list_id",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "task_id",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "progress_id",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "review_id",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "comment_id",
+      "value": "",
+      "type": "default",
+      "enabled": true
+    }
+  ]
+}
