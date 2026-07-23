@@ -478,6 +478,7 @@ GOPATH=$HOME/go GOMODCACHE=$HOME/go/pkg/mod \
 ```
 
 **Kalau berhasil, akan muncul:**
+
 ```
 time=... level=INFO msg="starting GoTask API" env=development
 time=... level=INFO msg="connected to PostgreSQL"
@@ -520,11 +521,11 @@ Sekarang tinggal:
 
 ### 4️⃣ Menghentikan Server
 
-| Cara | Perintah |
-|------|----------|
-| **Ctrl+C** | Tekan `Ctrl+C` di terminal yang menjalankan server |
-| **Dari terminal lain** | `pkill -f gotask` |
-| **Cek masih jalan?** | `lsof -i :8080` |
+| Cara                   | Perintah                                           |
+| ---------------------- | -------------------------------------------------- |
+| **Ctrl+C**             | Tekan `Ctrl+C` di terminal yang menjalankan server |
+| **Dari terminal lain** | `pkill -f gotask`                                  |
+| **Cek masih jalan?**   | `lsof -i :8080`                                    |
 
 ### 5️⃣ Cek Apakah Server Sudah Berjalan
 
