@@ -17,6 +17,7 @@ A production-ready task management REST API built with Go, featuring workflow-ba
    - [FAQ](#-faq--pertanyaan-yang-sering-muncul)
 5. [Setup & Instalasi](#setup)
    - [Panduan Lengkap Instalasi Lokal](#-panduan-lengkap-instalasi-lokal-macos)
+   - [☁️ Opsi Supabase](#-opsi-pakai-supabase-postgresql-cloud--tanpa-install-lokal)
 6. [▶️ Menjalankan & Menghentikan Server](#-menjalankan--menghentikan-server)
 7. [API Endpoints](#api-endpoints)
 8. [Contoh Request/Response](#api-examples)
@@ -393,16 +394,16 @@ cp .env.example .env
 
 Configure:
 
-| Variable               | Description                          | Default                                                          |
-| ---------------------- | ------------------------------------ | ---------------------------------------------------------------- |
-| `APP_ENV`              | Environment (development/production) | `development`                                                    |
-| `APP_PORT`             | HTTP port                            | `8080`                                                           |
-| `DATABASE_URL`         | PostgreSQL connection URL            | `postgres://gotask:gotask@localhost:5432/gotask?sslmode=disable` |
-| `JWT_ACCESS_SECRET`    | JWT access token secret              | `change-me`                                                      |
-| `JWT_REFRESH_SECRET`   | JWT refresh token secret             | `change-me`                                                      |
-| `JWT_ACCESS_TTL`       | Access token TTL                     | `15m`                                                            |
-| `JWT_REFRESH_TTL`      | Refresh token TTL                    | `720h`                                                           |
-| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins                 | `http://localhost:3000`                                          |
+| Variable               | Description                          | Default / Contoh                                                                                                        |
+| ---------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `APP_ENV`              | Environment (development/production) | `development`                                                                                                           |
+| `APP_PORT`             | HTTP port                            | `8080`                                                                                                                  |
+| `DATABASE_URL`         | PostgreSQL connection URL            | Local: `postgres://gotask:gotask@localhost:5432/gotask?sslmode=disable`<br>Supabase: `postgresql://postgres:[PASS]@db.xxxxx.supabase.co:5432/postgres` |
+| `JWT_ACCESS_SECRET`    | JWT access token secret              | `change-me`                                                                                                             |
+| `JWT_REFRESH_SECRET`   | JWT refresh token secret             | `change-me`                                                                                                             |
+| `JWT_ACCESS_TTL`       | Access token TTL                     | `15m`                                                                                                                   |
+| `JWT_REFRESH_TTL`      | Refresh token TTL                    | `720h`                                                                                                                  |
+| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins                 | `http://localhost:3000`                                                                                                 |
 
 ### Running with Docker Compose (Recommended)
 
@@ -429,6 +430,38 @@ make migrate-up
 # Run the application
 make run
 ```
+
+### ☁️ Opsi: Pakai Supabase (PostgreSQL Cloud — Tanpa Install Lokal)
+
+Malas install PostgreSQL? Pakai [Supabase](https://supabase.com) (gratis 500MB). Cukup ganti `DATABASE_URL` di `.env`:
+
+```bash
+# .env
+DATABASE_URL=postgresql://postgres:[PASSWORD-KAMU]@db.xxxxx.supabase.co:5432/postgres
+```
+
+**Cara dapat URL-nya:**
+
+1. Buka [supabase.com/dashboard](https://supabase.com/dashboard) → bikin project (gratis)
+2. Setelah project siap, buka **Settings → Database**
+3. Scroll ke **Connection string** → copy yang format `postgresql://`
+4. Ganti `[YOUR-PASSWORD]` dengan password yang kamu set saat bikin project
+
+**Jalankan migrasi ke Supabase:**
+
+```bash
+export DATABASE_URL="postgresql://postgres:[PASSWORD]@db.xxxxx.supabase.co:5432/postgres"
+migrate -path db/migrations -database "$DATABASE_URL" up
+```
+
+**Keuntungan pakai Supabase:**
+- ✅ Tidak perlu install PostgreSQL di laptop
+- ✅ Database online, bisa diakses dari mana saja
+- ✅ Gratis sampai 500MB
+- ✅ Ada dashboard GUI untuk lihat isi tabel
+- ✅ Tetap pakai PostgreSQL standar — semua query GoTask langsung kompatibel
+
+> 💡 **Driver `lib/pq` yang dipakai GoTask sudah kompatibel dengan Supabase.** Tidak perlu install `pgx` atau ganti kode apapun.
 
 ### Generate sqlc
 
