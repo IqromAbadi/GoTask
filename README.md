@@ -6,32 +6,40 @@ A production-ready task management REST API built with Go, featuring workflow-ba
 
 ## 📑 Daftar Isi
 
-1. [Fitur](#features)
-2. [Technology Stack](#technology-stack)
-3. [Struktur Folder](#project-structure)
+1. [✨ Fitur](#features)
+2. [🔧 Technology Stack](#technology-stack)
+3. [📁 Struktur Folder](#project-structure)
 4. [🧠 Panduan untuk Pemula (Bahasa Indonesia)](#-panduan-struktur-folder--urutan-coding-untuk-pemula)
-   - [Gambaran Besar](#-gambaran-besar-ibarat-gedung-perkantoran)
-   - [Arsitektur Modul (Rumus 6M)](#-arsitektur-dalam-setiap-modul-pola-6-file)
-   - [Urutan Membuat dari Nol](#-urutan-membuat-project-dari-nol-step-by-step)
-   - [Kesalahan Umum](#-5-kesalahan-umum-pemula-jangan-ditiru)
-   - [FAQ](#-faq--pertanyaan-yang-sering-muncul)
-5. [Setup & Instalasi](#setup)
-   - [Panduan Lengkap Instalasi Lokal](#-panduan-lengkap-instalasi-lokal-macos)
-   - [☁️ Opsi Supabase](#-opsi-pakai-supabase-postgresql-cloud--tanpa-install-lokal)
+   - [📁 Gambaran Besar](#-gambaran-besar-ibarat-gedung-perkantoran)
+   - [🧱 Arsitektur Modul (Rumus 6M)](#-arsitektur-dalam-setiap-modul-pola-6-file)
+   - [🐣 Urutan Membuat dari Nol](#-urutan-membuat-project-dari-nol-step-by-step)
+   - [❌ 5 Kesalahan Umum](#-5-kesalahan-umum-pemula-jangan-ditiru)
+   - [✅ Ceklis Sebelum Lanjut](#-ceklis-sebelum-pindah-ke-modul-berikutnya)
+   - [📐 Diagram Alur](#-diagram-alur-coding-dari-nol-sampai-selesai)
+   - [🙋 FAQ](#-faq--pertanyaan-yang-sering-muncul)
+   - [💡 Tips Pengembangan](#-tips-pengembangan)
+5. [⚙️ Setup & Instalasi](#setup)
+   - [Prasyarat](#prerequisites)
+   - [Environment Variables](#environment-variables)
+   - [Docker Compose](#running-with-docker-compose-recommended)
+   - [Running Locally](#running-locally)
+   - [☁️ Opsi Supabase (Cloud)](#-opsi-pakai-supabase-postgresql-cloud--tanpa-install-lokal)
 6. [▶️ Menjalankan & Menghentikan Server](#-menjalankan--menghentikan-server)
-7. [API Endpoints](#api-endpoints)
-8. [Contoh Request/Response](#api-examples)
-9. [Task Workflow](#task-workflow)
-10. [Business Rules](#business-rules)
-11. [ERD](#erd-entity-relationship-diagram)
-12. [Arsitektur](#architecture)
-13. [Keamanan](#security)
-14. [Makefile Commands](#makefile-commands)
-15. [🛠️ Troubleshooting](#-troubleshooting)
-16. [Testing](#testing)
-17. [📖 Kamus Istilah](#-kamus-istilah-glossary)
-18. [🤝 Berkontribusi](#-berkontribusi-contribution-guide)
-19. [📊 Status Project](#-status-project)
+7. [🌐 Deployment (Koyeb)](#-deployment-ke-koyeb-gratis)
+8. [📡 API Endpoints](#api-endpoints)
+9. [📮 Contoh Request/Response](#api-examples)
+10. [🔄 Task Workflow](#task-workflow)
+11. [📋 Business Rules](#business-rules)
+12. [🗺️ ERD (Diagram Database)](#erd-entity-relationship-diagram)
+13. [🏗️ Arsitektur](#architecture)
+14. [🔒 Keamanan](#security)
+15. [⚡ Makefile Commands](#makefile-commands)
+16. [🛠️ Troubleshooting](#-troubleshooting)
+17. [🧪 Testing](#testing)
+18. [📦 Postman Collection](#-postman-collection)
+19. [📖 Kamus Istilah](#-kamus-istilah-glossary)
+20. [🤝 Berkontribusi](#-berkontribusi-contribution-guide)
+21. [📊 Status Project](#-status-project)
 
 ---
 
@@ -588,6 +596,61 @@ curl http://localhost:8080/health
 # Response yang diharapkan:
 # {"success":true,"message":"OK","data":{"status":"ok"}}
 ```
+
+---
+
+## 🌐 Deployment ke Koyeb (Gratis)
+
+Biar API bisa diakses 24 jam dari mana saja — tanpa laptop menyala, tanpa `go run`.
+
+### Kenapa Koyeb?
+
+| Kelebihan | Detail |
+|-----------|--------|
+| ✅ Gratis selamanya | Gak perlu kartu kredit |
+| ✅ Server gak tidur | Berbeda dengan Render |
+| ✅ Deploy dari GitHub | Tinggal connect repo |
+| ✅ Auto-deploy | Push ke GitHub → otomatis update |
+
+### Cara Deploy (5 menit)
+
+**1. Buka [koyeb.com](https://www.koyeb.com) → Sign Up with GitHub**
+
+**2. Klik Create App → pilih GitHub → pilih repo `IqromAbadi/GoTask`**
+
+**3. Setting:**
+
+| Setting | Isi |
+|---------|-----|
+| Type | Dockerfile |
+| Port | `8080` |
+| Health Check | `GET /health` |
+
+**4. Environment Variables (copy dari `.env`):**
+
+```
+APP_ENV=production
+APP_PORT=8080
+DATABASE_URL=postgresql://postgres.fkuzsqncaacvpbbjiwgd:PASSWORD@aws-1-ap-northeast-2.pooler.supabase.com:5432/postgres?sslmode=require
+JWT_ACCESS_SECRET=your-secret-here
+JWT_REFRESH_SECRET=your-secret-here
+JWT_ACCESS_TTL=15m
+JWT_REFRESH_TTL=720h
+CORS_ALLOWED_ORIGINS=*
+```
+
+**5. Klik Deploy** 🚀
+
+Tunggu 2-3 menit, dapat URL: `https://gotask-xxxxx.koyeb.app`
+
+**6. Tes:**
+
+```bash
+curl https://gotask-xxxxx.koyeb.app/health
+# → {"success":true,"message":"OK","data":{"status":"ok"}}
+```
+
+> 💡 **Setelah deploy, frontend kamu bisa pakai `https://gotask-xxxxx.koyeb.app/api/v1` sebagai base URL.**
 
 ---
 
@@ -1148,7 +1211,44 @@ Tests cover:
 
 ---
 
-## 📖 Kamus Istilah (Glossary)
+## � Postman Collection
+
+Tinggal import, langsung bisa tes semua 39 endpoint tanpa nulis kode.
+
+### File
+
+| File | Fungsi |
+|------|--------|
+| `docs/postman-collection.json` | Kumpulan 39 endpoint siap pakai |
+| `docs/postman-environment.json` | Variable (base_url, token, dll.) |
+
+### Cara Import
+
+1. Buka Postman → **Import** → pilih kedua file di atas
+2. Pilih Environment **"GoTask Local"** di dropdown kanan atas
+3. Jalankan **Login** → token otomatis tersimpan ✨
+
+### Struktur Folder
+
+```
+📁 GoTask API
+├── 🏥 Health              (1 endpoint)
+├── 🔐 Auth                (4 endpoint) — Register, Login, Refresh, Logout
+├── 👤 User                (3 endpoint) — Profile, Update, Password
+├── 📋 Task Lists          (8 endpoint) — CRUD + Archive + Board
+├── ✅ Tasks               (9 endpoint) — CRUD + Status + Priority + Reopen
+├── 📊 Progress            (6 endpoint) — CRUD + Rollback
+├── 🔍 Review              (5 endpoint) — Submit, Approve, Request Changes
+├── 💬 Comments            (4 endpoint) — CRUD
+├── 📜 Activity            (2 endpoint) — Task & User
+└── 📈 Dashboard           (6 endpoint) — Summary, Analytics, Deadlines
+```
+
+> 💡 **Body support `form-data` dan `raw JSON`** — backend otomatis detect formatnya.
+
+---
+
+## �📖 Kamus Istilah (Glossary)
 
 Biar tidak bingung dengan istilah-istilah teknis, berikut daftar kata yang sering muncul:
 
