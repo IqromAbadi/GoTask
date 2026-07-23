@@ -16,19 +16,21 @@ A production-ready task management REST API built with Go, featuring workflow-ba
    - [Kesalahan Umum](#-5-kesalahan-umum-pemula-jangan-ditiru)
    - [FAQ](#-faq--pertanyaan-yang-sering-muncul)
 5. [Setup & Instalasi](#setup)
-6. [API Endpoints](#api-endpoints)
-7. [Contoh Request/Response](#api-examples)
-8. [Task Workflow](#task-workflow)
-9. [Business Rules](#business-rules)
-10. [ERD](#erd-entity-relationship-diagram)
-11. [Arsitektur](#architecture)
-12. [Keamanan](#security)
-13. [Makefile Commands](#makefile-commands)
-14. [🛠️ Troubleshooting](#-troubleshooting)
-15. [Testing](#testing)
-16. [📖 Kamus Istilah](#-kamus-istilah-glossary)
-17. [🤝 Berkontribusi](#-berkontribusi-contribution-guide)
-18. [📊 Status Project](#-status-project)
+   - [Panduan Lengkap Instalasi Lokal](#-panduan-lengkap-instalasi-lokal-macos)
+6. [▶️ Menjalankan & Menghentikan Server](#-menjalankan--menghentikan-server)
+7. [API Endpoints](#api-endpoints)
+8. [Contoh Request/Response](#api-examples)
+9. [Task Workflow](#task-workflow)
+10. [Business Rules](#business-rules)
+11. [ERD](#erd-entity-relationship-diagram)
+12. [Arsitektur](#architecture)
+13. [Keamanan](#security)
+14. [Makefile Commands](#makefile-commands)
+15. [🛠️ Troubleshooting](#-troubleshooting)
+16. [Testing](#testing)
+17. [📖 Kamus Istilah](#-kamus-istilah-glossary)
+18. [🤝 Berkontribusi](#-berkontribusi-contribution-guide)
+19. [📊 Status Project](#-status-project)
 
 ---
 
@@ -433,6 +435,126 @@ make run
 ```bash
 make sqlc
 ```
+
+---
+
+## ▶️ Menjalankan & Menghentikan Server
+
+> **Untuk sehari-hari setelah instalasi.** Simpan perintah ini, kamu akan sering memakainya.
+
+### 1️⃣ Install Tools & Database (sekali saja)
+
+```bash
+# Install PostgreSQL 16 dan golang-migrate
+brew install postgresql@16 golang-migrate
+
+# Start PostgreSQL (jalan di background)
+brew services start postgresql@16
+
+# Buat user & database
+/opt/homebrew/opt/postgresql@16/bin/psql -d postgres <<SQL
+CREATE USER gotask WITH PASSWORD 'gotask';
+CREATE DATABASE gotask OWNER gotask;
+GRANT ALL PRIVILEGES ON DATABASE gotask TO gotask;
+SQL
+
+# Copy .env (sekali saja)
+cp .env.example .env
+
+# Jalankan migrasi
+export $(grep -v '^#' .env | xargs)
+migrate -path db/migrations -database "$DATABASE_URL" up
+```
+
+### 2️⃣ Menjalankan Server (setiap kali coding)
+
+```bash
+# Buka terminal di folder project
+cd /Volumes/SSD/LEARN/GO/GoTask
+
+# Jalankan server
+GOPATH=$HOME/go GOMODCACHE=$HOME/go/pkg/mod \
+  go run ./cmd/api
+```
+
+**Kalau berhasil, akan muncul:**
+```
+time=... level=INFO msg="starting GoTask API" env=development
+time=... level=INFO msg="connected to PostgreSQL"
+time=... level=INFO msg="server started" port=8080
+```
+
+> ⚠️ **Server tidak otomatis baca file `.env`** — environment variable harus di-export dulu. Lihat langkah 3 di bawah.
+
+### 3️⃣ Cara Paling Simpel (pakai .env otomatis)
+
+Buat file `run.sh` di root project:
+
+```bash
+cat > run.sh << 'EOF'
+#!/bin/bash
+# Matikan server lama (kalau ada)
+pkill -f gotask 2>/dev/null
+sleep 1
+
+# Export env dari .env dan jalankan
+cd "$(dirname "$0")"
+set -a; source .env; set +a
+export GOPATH=$HOME/go
+export GOMODCACHE=$HOME/go/pkg/mod
+
+echo "▶️  Menjalankan GoTask di http://localhost:${APP_PORT:-8080}"
+echo "   Tekan Ctrl+C untuk berhenti"
+echo ""
+go run ./cmd/api
+EOF
+
+chmod +x run.sh
+```
+
+Sekarang tinggal:
+
+```bash
+./run.sh
+```
+
+### 4️⃣ Menghentikan Server
+
+| Cara | Perintah |
+|------|----------|
+| **Ctrl+C** | Tekan `Ctrl+C` di terminal yang menjalankan server |
+| **Dari terminal lain** | `pkill -f gotask` |
+| **Cek masih jalan?** | `lsof -i :8080` |
+
+### 5️⃣ Cek Apakah Server Sudah Berjalan
+
+```bash
+# Cek port 8080
+lsof -i :8080
+
+# Kalau ada output → server masih hidup
+# Kalau kosong     → aman, bisa start baru
+```
+
+### 6️⃣ Restart Cepat (stop + start)
+
+```bash
+pkill -f gotask 2>/dev/null
+sleep 1
+go run ./cmd/api
+```
+
+### 7️⃣ Tes Server Berjalan
+
+```bash
+# Health check
+curl http://localhost:8080/health
+
+# Response yang diharapkan:
+# {"success":true,"message":"OK","data":{"status":"ok"}}
+```
+
+---
 
 ## API Endpoints
 
