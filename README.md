@@ -394,16 +394,16 @@ cp .env.example .env
 
 Configure:
 
-| Variable               | Description                          | Default / Contoh                                                                                                        |
-| ---------------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
-| `APP_ENV`              | Environment (development/production) | `development`                                                                                                           |
-| `APP_PORT`             | HTTP port                            | `8080`                                                                                                                  |
+| Variable               | Description                          | Default / Contoh                                                                                                                                       |
+| ---------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `APP_ENV`              | Environment (development/production) | `development`                                                                                                                                          |
+| `APP_PORT`             | HTTP port                            | `8080`                                                                                                                                                 |
 | `DATABASE_URL`         | PostgreSQL connection URL            | Local: `postgres://gotask:gotask@localhost:5432/gotask?sslmode=disable`<br>Supabase: `postgresql://postgres:[PASS]@db.xxxxx.supabase.co:5432/postgres` |
-| `JWT_ACCESS_SECRET`    | JWT access token secret              | `change-me`                                                                                                             |
-| `JWT_REFRESH_SECRET`   | JWT refresh token secret             | `change-me`                                                                                                             |
-| `JWT_ACCESS_TTL`       | Access token TTL                     | `15m`                                                                                                                   |
-| `JWT_REFRESH_TTL`      | Refresh token TTL                    | `720h`                                                                                                                  |
-| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins                 | `http://localhost:3000`                                                                                                 |
+| `JWT_ACCESS_SECRET`    | JWT access token secret              | `change-me`                                                                                                                                            |
+| `JWT_REFRESH_SECRET`   | JWT refresh token secret             | `change-me`                                                                                                                                            |
+| `JWT_ACCESS_TTL`       | Access token TTL                     | `15m`                                                                                                                                                  |
+| `JWT_REFRESH_TTL`      | Refresh token TTL                    | `720h`                                                                                                                                                 |
+| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins                 | `http://localhost:3000`                                                                                                                                |
 
 ### Running with Docker Compose (Recommended)
 
@@ -455,6 +455,7 @@ migrate -path db/migrations -database "$DATABASE_URL" up
 ```
 
 **Keuntungan pakai Supabase:**
+
 - ✅ Tidak perlu install PostgreSQL di laptop
 - ✅ Database online, bisa diakses dari mana saja
 - ✅ Gratis sampai 500MB
