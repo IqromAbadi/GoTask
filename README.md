@@ -44,6 +44,7 @@ A production-ready task management REST API built with Go, featuring workflow-ba
 ---
 
 <a id="features"></a>
+
 ## Features
 
 - 🔐 **JWT Authentication** — Register, login, refresh token rotation, logout
@@ -57,6 +58,7 @@ A production-ready task management REST API built with Go, featuring workflow-ba
 - 📈 **Dashboard** — Summary, progress analytics, deadlines, priority distribution
 
 <a id="technology-stack"></a>
+
 ## Technology Stack
 
 | Component        | Technology              |
@@ -74,6 +76,7 @@ A production-ready task management REST API built with Go, featuring workflow-ba
 | Containerization | Docker + Docker Compose |
 
 <a id="project-structure"></a>
+
 ## Project Structure
 
 ```
@@ -127,11 +130,13 @@ gotask/
 ---
 
 <a id="panduan-pemula"></a>
+
 ## 🧠 Panduan Struktur Folder & Urutan Coding (Untuk Pemula)
 
 > **Bahasa Indonesia** — Penjelasan sederhana tentang cara membuat project GoTask dari nol, langkah demi langkah.
 
 <a id="gambaran-besar"></a>
+
 ### 📁 Gambaran Besar: Ibarat Gedung Perkantoran
 
 Bayangkan GoTask seperti sebuah **gedung perkantoran**:
@@ -155,6 +160,7 @@ Bayangkan GoTask seperti sebuah **gedung perkantoran**:
 ---
 
 <a id="arsitektur-modul"></a>
+
 ### 🧱 Arsitektur Dalam Setiap Modul: Pola 6 File
 
 Setiap modul (seperti `auth/`, `task/`, dll.) memiliki **6 file standar** yang bekerja dalam rantai:
@@ -186,6 +192,7 @@ Setiap modul (seperti `auth/`, `task/`, dll.) memiliki **6 file standar** yang b
 ---
 
 <a id="urutan-membuat"></a>
+
 ### 🐣 Urutan Membuat Project dari Nol (Step by Step)
 
 #### 🔰 FASE 0: Fondasi Project
@@ -245,6 +252,7 @@ Phase 6: comment → dashboard     (dashboard baca agregat dari task)
 ---
 
 <a id="kesalahan-umum"></a>
+
 ### ❌ 5 Kesalahan Umum Pemula (Jangan Ditiru!)
 
 | #   | Kesalahan                                             | Akibatnya                                                     |
@@ -258,6 +266,7 @@ Phase 6: comment → dashboard     (dashboard baca agregat dari task)
 ---
 
 <a id="ceklis"></a>
+
 ### ✅ Ceklis Sebelum Pindah ke Modul Berikutnya
 
 Sebelum lanjut mengerjakan modul baru, pastikan **5 hal ini**:
@@ -273,6 +282,7 @@ Sebelum lanjut mengerjakan modul baru, pastikan **5 hal ini**:
 ---
 
 <a id="diagram-alur"></a>
+
 ### 📐 Diagram Alur Coding (Dari Nol Sampai Selesai)
 
 ```mermaid
@@ -319,6 +329,7 @@ graph TD
 ---
 
 <a id="faq"></a>
+
 ### 🙋 FAQ — Pertanyaan yang Sering Muncul
 
 <details>
@@ -382,6 +393,7 @@ Tanpa pengecekan ini, user A bisa membaca data user B hanya dengan menebak UUID.
 ---
 
 <a id="tips"></a>
+
 ### 💡 Tips Pengembangan
 
 1. **Gunakan `make` commands** — `make run`, `make test`, `make fmt` akan menghemat waktumu.
@@ -395,9 +407,11 @@ Tanpa pengecekan ini, user A bisa membaca data user B hanya dengan menebak UUID.
 ---
 
 <a id="setup"></a>
+
 ## Setup
 
 <a id="prerequisites"></a>
+
 ### Prerequisites
 
 - Go 1.24+
@@ -407,6 +421,7 @@ Tanpa pengecekan ini, user A bisa membaca data user B hanya dengan menebak UUID.
 - [sqlc](https://sqlc.dev/) CLI
 
 <a id="environment-variables"></a>
+
 ### Environment Variables
 
 Copy `.env.example` to `.env`:
@@ -429,6 +444,7 @@ Configure:
 | `CORS_ALLOWED_ORIGINS` | Allowed CORS origins                 | `http://localhost:3000`                                                                                                                                |
 
 <a id="docker-compose"></a>
+
 ### Running with Docker Compose (Recommended)
 
 ```bash
@@ -443,6 +459,7 @@ make docker-down
 ```
 
 <a id="running-locally"></a>
+
 ### Running Locally
 
 ```bash
@@ -457,6 +474,7 @@ make run
 ```
 
 <a id="supabase"></a>
+
 ### ☁️ Opsi: Pakai Supabase (PostgreSQL Cloud — Tanpa Install Lokal)
 
 Malas install PostgreSQL? Pakai [Supabase](https://supabase.com) (gratis 500MB). Cukup ganti `DATABASE_URL` di `.env`:
@@ -491,6 +509,7 @@ migrate -path db/migrations -database "$DATABASE_URL" up
 > 💡 **Driver `lib/pq` yang dipakai GoTask sudah kompatibel dengan Supabase.** Tidak perlu install `pgx` atau ganti kode apapun.
 
 <a id="sqlc"></a>
+
 ### Generate sqlc
 
 ```bash
@@ -500,6 +519,7 @@ make sqlc
 ---
 
 <a id="run-stop"></a>
+
 ## ▶️ Menjalankan & Menghentikan Server
 
 > **Untuk sehari-hari setelah instalasi.** Simpan perintah ini, kamu akan sering memakainya.
@@ -620,6 +640,7 @@ curl http://localhost:8080/health
 ---
 
 <a id="deployment"></a>
+
 ## 🌐 Deployment ke Koyeb (Gratis)
 
 Biar API bisa diakses 24 jam dari mana saja — tanpa laptop menyala, tanpa `go run`.
@@ -676,6 +697,7 @@ curl https://gotask-xxxxx.koyeb.app/health
 ---
 
 <a id="api-endpoints"></a>
+
 ## API Endpoints
 
 ### Health
@@ -776,6 +798,7 @@ curl https://gotask-xxxxx.koyeb.app/health
 | GET    | `/api/v1/dashboard/priority-distribution` | Required | Priority distribution |
 
 <a id="api-examples"></a>
+
 ## API Examples
 
 ### Register
@@ -846,6 +869,7 @@ curl -X POST http://localhost:8080/api/v1/tasks/{taskId}/submit-review \
 ```
 
 <a id="task-workflow"></a>
+
 ## Task Workflow
 
 ```mermaid
@@ -872,6 +896,7 @@ stateDiagram-v2
 | done        | in_progress          |
 
 <a id="business-rules"></a>
+
 ## Business Rules
 
 1. Task can only enter `review` when progress is 100%
@@ -886,6 +911,7 @@ stateDiagram-v2
 10. Each user can only access their own data
 
 <a id="erd"></a>
+
 ## ERD (Entity Relationship Diagram)
 
 ```mermaid
@@ -995,6 +1021,7 @@ erDiagram
 ```
 
 <a id="architecture"></a>
+
 ## Architecture
 
 The project follows a modular layered architecture:
@@ -1044,6 +1071,7 @@ Each module is self-contained with:
 - `handler.go` — HTTP handlers
 
 <a id="security"></a>
+
 ## Security
 
 - ✅ Password hashing with bcrypt
@@ -1064,6 +1092,7 @@ Each module is self-contained with:
 - ✅ Structured logging (no passwords/tokens)
 
 <a id="makefile-commands"></a>
+
 ## Makefile Commands
 
 ```bash
@@ -1084,6 +1113,7 @@ make fmt              # Format code
 ---
 
 <a id="troubleshooting"></a>
+
 ## 🛠️ Troubleshooting
 
 ### ❌ Port 8080 sudah digunakan (`bind: address already in use`)
@@ -1220,6 +1250,7 @@ source ~/.zshrc
 ---
 
 <a id="testing"></a>
+
 ## Testing
 
 ```bash
@@ -1313,6 +1344,7 @@ Biar tidak bingung dengan istilah-istilah teknis, berikut daftar kata yang serin
 ---
 
 <a id="contributing"></a>
+
 ## 🤝 Berkontribusi (Contribution Guide)
 
 ### Untuk Pemula yang Ingin Belajar
@@ -1361,6 +1393,7 @@ Biar tidak bingung dengan istilah-istilah teknis, berikut daftar kata yang serin
 ---
 
 <a id="status"></a>
+
 ## 📊 Status Project
 
 | Kategori               | Status              |
