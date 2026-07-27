@@ -781,6 +781,7 @@ flowchart TD
 ## 10. Contoh Data (Sample Data)
 
 <a id="101-user"></a>
+
 ### 10.1 User
 
 ```sql
@@ -789,6 +790,7 @@ INSERT INTO users (id, name, email, password_hash) VALUES
 ```
 
 <a id="102-task-list"></a>
+
 ### 10.2 Task List
 
 ```sql
@@ -797,6 +799,7 @@ INSERT INTO task_lists (id, user_id, name, description) VALUES
 ```
 
 <a id="103-tasks"></a>
+
 ### 10.3 Tasks
 
 ```sql
@@ -818,6 +821,7 @@ INSERT INTO tasks (id, list_id, created_by, title, status, priority, progress, s
 ```
 
 <a id="104-progress-updates"></a>
+
 ### 10.4 Progress Updates
 
 ```sql
@@ -827,6 +831,7 @@ INSERT INTO task_progress_updates (task_id, user_id, progress, note) VALUES
 ```
 
 <a id="105-review"></a>
+
 ### 10.5 Review
 
 ```sql
@@ -835,6 +840,7 @@ INSERT INTO task_reviews (task_id, reviewer_id, status, submission_note) VALUES
 ```
 
 <a id="106-comment"></a>
+
 ### 10.6 Comment
 
 ```sql
@@ -843,6 +849,7 @@ INSERT INTO task_comments (task_id, user_id, content) VALUES
 ```
 
 <a id="107-activity"></a>
+
 ### 10.7 Activity
 
 ```sql
@@ -884,6 +891,7 @@ INSERT INTO task_activities (task_id, user_id, action, old_value, new_value) VAL
 ## 12. Best Practice & Catatan Penting
 
 <a id="security"></a>
+
 ### Security
 
 | Praktik                        | Penerapan                                          |
@@ -894,6 +902,7 @@ INSERT INTO task_activities (task_id, user_id, action, old_value, new_value) VAL
 | SQL injection dicegah          | Semua query pakai parameterized query (`$1`, `$2`) |
 
 <a id="data-integrity"></a>
+
 ### Data Integrity
 
 | Praktik           | Penerapan                                        |
@@ -905,6 +914,7 @@ INSERT INTO task_activities (task_id, user_id, action, old_value, new_value) VAL
 | Timestamp UTC     | Semua TIMESTAMPTZ, aplikasi menggunakan UTC      |
 
 <a id="performance"></a>
+
 ### Performance
 
 | Praktik                    | Penerapan                                           |
@@ -914,6 +924,7 @@ INSERT INTO task_activities (task_id, user_id, action, old_value, new_value) VAL
 | Query JOIN untuk ownership | Setiap query task JOIN task_lists untuk cek user_id |
 
 <a id="migration"></a>
+
 ### Migration
 
 | Praktik         | Penerapan                                                       |
