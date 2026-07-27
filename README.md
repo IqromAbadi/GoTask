@@ -61,18 +61,18 @@ A production-ready task management REST API built with Go, featuring workflow-ba
 
 ## Technology Stack
 
-| Component | Technology |
+| Component        | Technology              |
 | ---------------- | ----------------------- |
-| Language | Go 1.24 |
-| HTTP Router | go-chi/chi v5 |
-| Database | PostgreSQL 16 |
-| Migrations | golang-migrate |
-| Query Generator | sqlc |
-| Validation | go-playground/validator |
-| Authentication | JWT (golang-jwt) |
-| Password Hashing | bcrypt (x/crypto) |
-| Logging | log/slog (structured) |
-| UUID | google/uuid |
+| Language         | Go 1.24                 |
+| HTTP Router      | go-chi/chi v5           |
+| Database         | PostgreSQL 16           |
+| Migrations       | golang-migrate          |
+| Query Generator  | sqlc                    |
+| Validation       | go-playground/validator |
+| Authentication   | JWT (golang-jwt)        |
+| Password Hashing | bcrypt (x/crypto)       |
+| Logging          | log/slog (structured)   |
+| UUID             | google/uuid             |
 | Containerization | Docker + Docker Compose |
 
 <a id="project-structure"></a>
@@ -141,21 +141,21 @@ gotask/
 
 Bayangkan GoTask seperti sebuah **gedung perkantoran**:
 
-| Folder | Ibarat | Fungsi |
-| ---------------------- | ---------------------------- | ----------------------------------------------------- |
-| `cmd/api/main.go` | **Pintu masuk** | Tombol START untuk menjalankan aplikasi |
-| `internal/platform/` | **Ruang utilitas** | Listrik, air, AC (config, logger, database) |
-| `internal/middleware/` | **Pos satpam** | Pengecekan sebelum masuk (auth, rate limit, CORS) |
-| `internal/auth/` | **Ruang login** | Register, login, lupa password |
-| `internal/tasklist/` | **Papan kerja** | Tempat menempel daftar tugas |
-| `internal/task/` | **Kartu tugas** | Satu per satu pekerjaan yang harus diselesaikan |
-| `internal/progress/` | **Laporan harian** | Catatan "sudah selesai berapa persen" |
-| `internal/review/` | **Ruang pemeriksa** | Atasan periksa hasil kerja, approve atau minta revisi |
-| `internal/comment/` | **Post-it note** | Tempelan diskusi di setiap kartu tugas |
-| `internal/activity/` | **Buku sejarah** | Catatan otomatis semua perubahan yang terjadi |
-| `internal/dashboard/` | **Layar ringkasan** | Grafik dan angka rekapitulasi |
-| `db/migrations/` | **Cetak biru database** | Skema tabel yang bisa di-_upgrade_ |
-| `db/queries/` | **Kumpulan perintah SQL** | Mentahan query yang akan di-generate oleh sqlc |
+| Folder                 | Ibarat                    | Fungsi                                                |
+| ---------------------- | ------------------------- | ----------------------------------------------------- |
+| `cmd/api/main.go`      | **Pintu masuk**           | Tombol START untuk menjalankan aplikasi               |
+| `internal/platform/`   | **Ruang utilitas**        | Listrik, air, AC (config, logger, database)           |
+| `internal/middleware/` | **Pos satpam**            | Pengecekan sebelum masuk (auth, rate limit, CORS)     |
+| `internal/auth/`       | **Ruang login**           | Register, login, lupa password                        |
+| `internal/tasklist/`   | **Papan kerja**           | Tempat menempel daftar tugas                          |
+| `internal/task/`       | **Kartu tugas**           | Satu per satu pekerjaan yang harus diselesaikan       |
+| `internal/progress/`   | **Laporan harian**        | Catatan "sudah selesai berapa persen"                 |
+| `internal/review/`     | **Ruang pemeriksa**       | Atasan periksa hasil kerja, approve atau minta revisi |
+| `internal/comment/`    | **Post-it note**          | Tempelan diskusi di setiap kartu tugas                |
+| `internal/activity/`   | **Buku sejarah**          | Catatan otomatis semua perubahan yang terjadi         |
+| `internal/dashboard/`  | **Layar ringkasan**       | Grafik dan angka rekapitulasi                         |
+| `db/migrations/`       | **Cetak biru database**   | Skema tabel yang bisa di-_upgrade_                    |
+| `db/queries/`          | **Kumpulan perintah SQL** | Mentahan query yang akan di-generate oleh sqlc        |
 
 ---
 
@@ -167,25 +167,25 @@ Setiap modul (seperti `auth/`, `task/`, dll.) memiliki **6 file standar** yang b
 
 ```
 
- ALUR KERJA STANDAR 
- 
- handler.go service.go repository.go 
- 
- (terima HTTP) (logika bisnis) (simpan/ambil data) 
- 
- dto.go model.go repository_impl.go 
- (formulir) (cetakan data) (kode SQL asli) 
+ ALUR KERJA STANDAR
+
+ handler.go service.go repository.go
+
+ (terima HTTP) (logika bisnis) (simpan/ambil data)
+
+ dto.go model.go repository_impl.go
+ (formulir) (cetakan data) (kode SQL asli)
 
 ```
 
-| File | Analogi Sederhana | Isinya |
-| -------------------- | -------------------- | ----------------------------------------------------------- |
-| `model.go` | **Cetakan kue** | Struktur data asli (ID, nama, email, password, dll.) |
-| `dto.go` | **Formulir** | Data yang dikirim/diterima user (Request & Response) |
-| `repository.go` | **Kontrak kerja** | Interface — janji method apa saja yang harus ada |
-| `repository_impl.go` | **Pelaksana** | Kode SQL sungguhan (INSERT, SELECT, UPDATE, DELETE) |
-| `service.go` | **Manager** | Aturan bisnis: validasi, kalkulasi, pengambilan keputusan |
-| `handler.go` | **Resepsionis** | Terima HTTP request panggil service kirim JSON response |
+| File                 | Analogi Sederhana | Isinya                                                    |
+| -------------------- | ----------------- | --------------------------------------------------------- |
+| `model.go`           | **Cetakan kue**   | Struktur data asli (ID, nama, email, password, dll.)      |
+| `dto.go`             | **Formulir**      | Data yang dikirim/diterima user (Request & Response)      |
+| `repository.go`      | **Kontrak kerja** | Interface — janji method apa saja yang harus ada          |
+| `repository_impl.go` | **Pelaksana**     | Kode SQL sungguhan (INSERT, SELECT, UPDATE, DELETE)       |
+| `service.go`         | **Manager**       | Aturan bisnis: validasi, kalkulasi, pengambilan keputusan |
+| `handler.go`         | **Resepsionis**   | Terima HTTP request panggil service kirim JSON response   |
 
 > ** Kenapa dipisah?** Supaya kalau ada perubahan (misal ganti database dari PostgreSQL ke MySQL), kamu cukup ganti `repository_impl.go` saja. File lain tidak perlu disentuh!
 
@@ -208,18 +208,18 @@ $ go mod init github.com/namamu/gotask
 
 **Jangan dibalik urutannya!** Karena setiap langkah bergantung pada langkah sebelumnya:
 
-| No | File | Kenapa Harus Duluan? |
+| No  | File                                 | Kenapa Harus Duluan?                                         |
 | --- | ------------------------------------ | ------------------------------------------------------------ |
-| 1 | `config.go` | Semua file butuh pengaturan (port, secret key, database URL) |
-| 2 | `logger.go` | Supaya bisa mencatat error sejak awal development |
-| 3 | `postgres.go` | Semua data disimpan di database, wajib connect dulu |
-| 4 | `response.go` | Semua jawaban ke user harus seragam formatnya |
-| 5 | `validator.go` | Semua input user harus divalidasi |
-| 6 | Middleware (8 file) | "Gerbang" pengecekan sebelum request masuk ke handler |
-| 7 | File migrasi `.sql` | Tabel harus sudah dibuat sebelum bisa menyimpan data |
-| 8 | File query `.sql` | Repository butuh query SQL yang sudah siap |
-| 9 | `main.go` | "Otak" yang merangkai semua komponen menjadi satu |
-| 10 | Dockerfile, docker-compose, Makefile | Untuk deployment dan kemudahan development |
+| 1   | `config.go`                          | Semua file butuh pengaturan (port, secret key, database URL) |
+| 2   | `logger.go`                          | Supaya bisa mencatat error sejak awal development            |
+| 3   | `postgres.go`                        | Semua data disimpan di database, wajib connect dulu          |
+| 4   | `response.go`                        | Semua jawaban ke user harus seragam formatnya                |
+| 5   | `validator.go`                       | Semua input user harus divalidasi                            |
+| 6   | Middleware (8 file)                  | "Gerbang" pengecekan sebelum request masuk ke handler        |
+| 7   | File migrasi `.sql`                  | Tabel harus sudah dibuat sebelum bisa menyimpan data         |
+| 8   | File query `.sql`                    | Repository butuh query SQL yang sudah siap                   |
+| 9   | `main.go`                            | "Otak" yang merangkai semua komponen menjadi satu            |
+| 10  | Dockerfile, docker-compose, Makefile | Untuk deployment dan kemudahan development                   |
 
 #### FASE 2: Modul Authentication (Login Dulu!)
 
@@ -227,16 +227,16 @@ Ini modul **paling kritis** — karena SEMUA modul lain butuh user yang sudah lo
 
 **Urutan dalam 1 modul (Rumus 6M):**
 
-| Urutan | Pertanyaan Kunci | File |
+| Urutan | Pertanyaan Kunci                | File                        |
 | ------ | ------------------------------- | --------------------------- |
-| **M1** | "Datanya bentuknya gimana?" | `model.go` |
-| **M2** | "User ngirim/terima data apa?" | `dto.go` |
+| **M1** | "Datanya bentuknya gimana?"     | `model.go`                  |
+| **M2** | "User ngirim/terima data apa?"  | `dto.go`                    |
 | **M3** | "Fitur apa saja yang tersedia?" | `repository.go` (interface) |
-| **M4** | "SQL-nya gimana?" | `repository_impl.go` |
-| **M5** | "Aturan mainnya apa?" | `service.go` |
-| **M6** | "Gimana terima request HTTP?" | `handler.go` |
-| | **DAFTARKAN KE `main.go`!** | Edit `main.go` |
-| | Tes unit | `service_test.go` |
+| **M4** | "SQL-nya gimana?"               | `repository_impl.go`        |
+| **M5** | "Aturan mainnya apa?"           | `service.go`                |
+| **M6** | "Gimana terima request HTTP?"   | `handler.go`                |
+|        | **DAFTARKAN KE `main.go`!**     | Edit `main.go`              |
+|        | Tes unit                        | `service_test.go`           |
 
 #### FASE 3–6: Modul Berikutnya (Pola Sama)
 
@@ -255,13 +255,13 @@ Phase 6: comment dashboard (dashboard baca agregat dari task)
 
 ### 5 Kesalahan Umum Pemula (Jangan Ditiru!)
 
-| # | Kesalahan | Akibatnya |
+| #   | Kesalahan                                             | Akibatnya                                                     |
 | --- | ----------------------------------------------------- | ------------------------------------------------------------- |
-| 1 | **Bikin `handler.go` duluan** sebelum `repository.go` | Bingung sendiri: "datanya dari mana?!" |
-| 2 | **Skip bikin interface** (`repository.go`) | Susah ganti database & susah bikin unit test |
-| 3 | **Lupa daftarin ke `main.go`** | Fitur sudah jadi 100% tapi tidak jalan |
-| 4 | **Nulis SQL langsung di `handler.go`** | Kode berantakan, rawan SQL injection, susah di-_debug_ |
-| 5 | **Tidak pakai database transaction** | Data bisa "setengah jadi" kalau terjadi error di tengah jalan |
+| 1   | **Bikin `handler.go` duluan** sebelum `repository.go` | Bingung sendiri: "datanya dari mana?!"                        |
+| 2   | **Skip bikin interface** (`repository.go`)            | Susah ganti database & susah bikin unit test                  |
+| 3   | **Lupa daftarin ke `main.go`**                        | Fitur sudah jadi 100% tapi tidak jalan                        |
+| 4   | **Nulis SQL langsung di `handler.go`**                | Kode berantakan, rawan SQL injection, susah di-_debug_        |
+| 5   | **Tidak pakai database transaction**                  | Data bisa "setengah jadi" kalau terjadi error di tengah jalan |
 
 ---
 
@@ -432,16 +432,16 @@ cp .env.example .env
 
 Configure:
 
-| Variable | Description | Default / Contoh |
+| Variable               | Description                          | Default / Contoh                                                                                                                                       |
 | ---------------------- | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `APP_ENV` | Environment (development/production) | `development` |
-| `APP_PORT` | HTTP port | `8080` |
-| `DATABASE_URL` | PostgreSQL connection URL | Local: `postgres://gotask:gotask@localhost:5432/gotask?sslmode=disable`<br>Supabase: `postgresql://postgres:[PASS]@db.xxxxx.supabase.co:5432/postgres` |
-| `JWT_ACCESS_SECRET` | JWT access token secret | `change-me` |
-| `JWT_REFRESH_SECRET` | JWT refresh token secret | `change-me` |
-| `JWT_ACCESS_TTL` | Access token TTL | `15m` |
-| `JWT_REFRESH_TTL` | Refresh token TTL | `720h` |
-| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins | `http://localhost:3000` |
+| `APP_ENV`              | Environment (development/production) | `development`                                                                                                                                          |
+| `APP_PORT`             | HTTP port                            | `8080`                                                                                                                                                 |
+| `DATABASE_URL`         | PostgreSQL connection URL            | Local: `postgres://gotask:gotask@localhost:5432/gotask?sslmode=disable`<br>Supabase: `postgresql://postgres:[PASS]@db.xxxxx.supabase.co:5432/postgres` |
+| `JWT_ACCESS_SECRET`    | JWT access token secret              | `change-me`                                                                                                                                            |
+| `JWT_REFRESH_SECRET`   | JWT refresh token secret             | `change-me`                                                                                                                                            |
+| `JWT_ACCESS_TTL`       | Access token TTL                     | `15m`                                                                                                                                                  |
+| `JWT_REFRESH_TTL`      | Refresh token TTL                    | `720h`                                                                                                                                                 |
+| `CORS_ALLOWED_ORIGINS` | Allowed CORS origins                 | `http://localhost:3000`                                                                                                                                |
 
 <a id="docker-compose"></a>
 
@@ -603,11 +603,11 @@ Sekarang tinggal:
 
 ### 4 Menghentikan Server
 
-| Cara | Perintah |
+| Cara                   | Perintah                                           |
 | ---------------------- | -------------------------------------------------- |
-| **Ctrl+C** | Tekan `Ctrl+C` di terminal yang menjalankan server |
-| **Dari terminal lain** | `pkill -f gotask` |
-| **Cek masih jalan?** | `lsof -i :8080` |
+| **Ctrl+C**             | Tekan `Ctrl+C` di terminal yang menjalankan server |
+| **Dari terminal lain** | `pkill -f gotask`                                  |
+| **Cek masih jalan?**   | `lsof -i :8080`                                    |
 
 ### 5 Cek Apakah Server Sudah Berjalan
 
@@ -647,12 +647,12 @@ Biar API bisa diakses 24 jam dari mana saja — tanpa laptop menyala, tanpa `go 
 
 ### Kenapa Koyeb?
 
-| Kelebihan | Detail |
-| --------------------- | -------------------------------- |
-| Gratis selamanya | Gak perlu kartu kredit |
-| Server gak tidur | Berbeda dengan Render |
-| Deploy dari GitHub | Tinggal connect repo |
-| Auto-deploy | Push ke GitHub otomatis update |
+| Kelebihan          | Detail                         |
+| ------------------ | ------------------------------ |
+| Gratis selamanya   | Gak perlu kartu kredit         |
+| Server gak tidur   | Berbeda dengan Render          |
+| Deploy dari GitHub | Tinggal connect repo           |
+| Auto-deploy        | Push ke GitHub otomatis update |
 
 ### Cara Deploy (5 menit)
 
@@ -662,10 +662,10 @@ Biar API bisa diakses 24 jam dari mana saja — tanpa laptop menyala, tanpa `go 
 
 **3. Setting:**
 
-| Setting | Isi |
+| Setting      | Isi           |
 | ------------ | ------------- |
-| Type | Dockerfile |
-| Port | `8080` |
+| Type         | Dockerfile    |
+| Port         | `8080`        |
 | Health Check | `GET /health` |
 
 **4. Environment Variables (copy dari `.env`):**
@@ -681,7 +681,7 @@ JWT_REFRESH_TTL=720h
 CORS_ALLOWED_ORIGINS=*
 ```
 
-**5. Klik Deploy** 
+**5. Klik Deploy**
 
 Tunggu 2-3 menit, dapat URL: `https://gotask-xxxxx.koyeb.app`
 
@@ -702,100 +702,100 @@ curl https://gotask-xxxxx.koyeb.app/health
 
 ### Health
 
-| Method | Path | Auth | Description |
+| Method | Path      | Auth   | Description  |
 | ------ | --------- | ------ | ------------ |
-| GET | `/health` | Public | Health check |
+| GET    | `/health` | Public | Health check |
 
 ### Authentication
 
-| Method | Path | Auth | Description |
+| Method | Path                    | Auth   | Description          |
 | ------ | ----------------------- | ------ | -------------------- |
-| POST | `/api/v1/auth/register` | Public | Register new user |
-| POST | `/api/v1/auth/login` | Public | Login |
-| POST | `/api/v1/auth/refresh` | Public | Refresh access token |
-| POST | `/api/v1/auth/logout` | Public | Logout |
+| POST   | `/api/v1/auth/register` | Public | Register new user    |
+| POST   | `/api/v1/auth/login`    | Public | Login                |
+| POST   | `/api/v1/auth/refresh`  | Public | Refresh access token |
+| POST   | `/api/v1/auth/logout`   | Public | Logout               |
 
 ### User
 
-| Method | Path | Auth | Description |
+| Method | Path                        | Auth     | Description     |
 | ------ | --------------------------- | -------- | --------------- |
-| GET | `/api/v1/users/me` | Required | Get profile |
-| PATCH | `/api/v1/users/me` | Required | Update profile |
-| PATCH | `/api/v1/users/me/password` | Required | Change password |
+| GET    | `/api/v1/users/me`          | Required | Get profile     |
+| PATCH  | `/api/v1/users/me`          | Required | Update profile  |
+| PATCH  | `/api/v1/users/me/password` | Required | Change password |
 
 ### Task Lists
 
-| Method | Path | Auth | Description |
+| Method | Path                             | Auth     | Description       |
 | ------ | -------------------------------- | -------- | ----------------- |
-| POST | `/api/v1/lists` | Required | Create task list |
-| GET | `/api/v1/lists` | Required | List task lists |
-| GET | `/api/v1/lists/{listId}` | Required | Get task list |
-| PATCH | `/api/v1/lists/{listId}` | Required | Update task list |
-| DELETE | `/api/v1/lists/{listId}` | Required | Delete task list |
-| PATCH | `/api/v1/lists/{listId}/archive` | Required | Archive task list |
-| PATCH | `/api/v1/lists/{listId}/restore` | Required | Restore task list |
-| GET | `/api/v1/lists/{listId}/board` | Required | Get board view |
+| POST   | `/api/v1/lists`                  | Required | Create task list  |
+| GET    | `/api/v1/lists`                  | Required | List task lists   |
+| GET    | `/api/v1/lists/{listId}`         | Required | Get task list     |
+| PATCH  | `/api/v1/lists/{listId}`         | Required | Update task list  |
+| DELETE | `/api/v1/lists/{listId}`         | Required | Delete task list  |
+| PATCH  | `/api/v1/lists/{listId}/archive` | Required | Archive task list |
+| PATCH  | `/api/v1/lists/{listId}/restore` | Required | Restore task list |
+| GET    | `/api/v1/lists/{listId}/board`   | Required | Get board view    |
 
 ### Tasks
 
-| Method | Path | Auth | Description |
+| Method | Path                              | Auth     | Description               |
 | ------ | --------------------------------- | -------- | ------------------------- |
-| POST | `/api/v1/lists/{listId}/tasks` | Required | Create task |
-| GET | `/api/v1/lists/{listId}/tasks` | Required | List tasks (with filters) |
-| GET | `/api/v1/tasks/{taskId}` | Required | Get task |
-| PATCH | `/api/v1/tasks/{taskId}` | Required | Update task |
-| DELETE | `/api/v1/tasks/{taskId}` | Required | Soft delete task |
-| PATCH | `/api/v1/tasks/{taskId}/status` | Required | Change task status |
-| PATCH | `/api/v1/tasks/{taskId}/priority` | Required | Change task priority |
-| POST | `/api/v1/tasks/{taskId}/reopen` | Required | Reopen completed task |
+| POST   | `/api/v1/lists/{listId}/tasks`    | Required | Create task               |
+| GET    | `/api/v1/lists/{listId}/tasks`    | Required | List tasks (with filters) |
+| GET    | `/api/v1/tasks/{taskId}`          | Required | Get task                  |
+| PATCH  | `/api/v1/tasks/{taskId}`          | Required | Update task               |
+| DELETE | `/api/v1/tasks/{taskId}`          | Required | Soft delete task          |
+| PATCH  | `/api/v1/tasks/{taskId}/status`   | Required | Change task status        |
+| PATCH  | `/api/v1/tasks/{taskId}/priority` | Required | Change task priority      |
+| POST   | `/api/v1/tasks/{taskId}/reopen`   | Required | Reopen completed task     |
 
 **Task Filters**: `?status=in_progress&priority=high&search=login&due_date_from=2026-07-01&due_date_to=2026-07-31&is_overdue=true&sort_by=due_date&sort_order=asc&page=1&limit=20`
 
 ### Progress
 
-| Method | Path | Auth | Description |
+| Method | Path                                           | Auth     | Description            |
 | ------ | ---------------------------------------------- | -------- | ---------------------- |
-| POST | `/api/v1/tasks/{taskId}/progress` | Required | Add progress update |
-| GET | `/api/v1/tasks/{taskId}/progress` | Required | List progress updates |
-| GET | `/api/v1/tasks/{taskId}/progress/{progressId}` | Required | Get progress update |
-| PATCH | `/api/v1/tasks/{taskId}/progress/{progressId}` | Required | Update progress note |
+| POST   | `/api/v1/tasks/{taskId}/progress`              | Required | Add progress update    |
+| GET    | `/api/v1/tasks/{taskId}/progress`              | Required | List progress updates  |
+| GET    | `/api/v1/tasks/{taskId}/progress/{progressId}` | Required | Get progress update    |
+| PATCH  | `/api/v1/tasks/{taskId}/progress/{progressId}` | Required | Update progress note   |
 | DELETE | `/api/v1/tasks/{taskId}/progress/{progressId}` | Required | Delete progress update |
 
 ### Review
 
-| Method | Path | Auth | Description |
+| Method | Path                                                        | Auth     | Description       |
 | ------ | ----------------------------------------------------------- | -------- | ----------------- |
-| POST | `/api/v1/tasks/{taskId}/submit-review` | Required | Submit for review |
-| GET | `/api/v1/tasks/{taskId}/reviews` | Required | List reviews |
-| GET | `/api/v1/tasks/{taskId}/reviews/{reviewId}` | Required | Get review |
-| POST | `/api/v1/tasks/{taskId}/reviews/{reviewId}/approve` | Required | Approve review |
-| POST | `/api/v1/tasks/{taskId}/reviews/{reviewId}/request-changes` | Required | Request changes |
+| POST   | `/api/v1/tasks/{taskId}/submit-review`                      | Required | Submit for review |
+| GET    | `/api/v1/tasks/{taskId}/reviews`                            | Required | List reviews      |
+| GET    | `/api/v1/tasks/{taskId}/reviews/{reviewId}`                 | Required | Get review        |
+| POST   | `/api/v1/tasks/{taskId}/reviews/{reviewId}/approve`         | Required | Approve review    |
+| POST   | `/api/v1/tasks/{taskId}/reviews/{reviewId}/request-changes` | Required | Request changes   |
 
 ### Comments
 
-| Method | Path | Auth | Description |
+| Method | Path                                          | Auth     | Description    |
 | ------ | --------------------------------------------- | -------- | -------------- |
-| POST | `/api/v1/tasks/{taskId}/comments` | Required | Add comment |
-| GET | `/api/v1/tasks/{taskId}/comments` | Required | List comments |
-| PATCH | `/api/v1/tasks/{taskId}/comments/{commentId}` | Required | Update comment |
+| POST   | `/api/v1/tasks/{taskId}/comments`             | Required | Add comment    |
+| GET    | `/api/v1/tasks/{taskId}/comments`             | Required | List comments  |
+| PATCH  | `/api/v1/tasks/{taskId}/comments/{commentId}` | Required | Update comment |
 | DELETE | `/api/v1/tasks/{taskId}/comments/{commentId}` | Required | Delete comment |
 
 ### Activity
 
-| Method | Path | Auth | Description |
+| Method | Path                                | Auth     | Description     |
 | ------ | ----------------------------------- | -------- | --------------- |
-| GET | `/api/v1/tasks/{taskId}/activities` | Required | Task activities |
-| GET | `/api/v1/activities` | Required | User activities |
+| GET    | `/api/v1/tasks/{taskId}/activities` | Required | Task activities |
+| GET    | `/api/v1/activities`                | Required | User activities |
 
 ### Dashboard
 
-| Method | Path | Auth | Description |
+| Method | Path                                      | Auth     | Description           |
 | ------ | ----------------------------------------- | -------- | --------------------- |
-| GET | `/api/v1/dashboard/summary` | Required | Task summary |
-| GET | `/api/v1/dashboard/progress` | Required | Progress analytics |
-| GET | `/api/v1/dashboard/upcoming-deadlines` | Required | Upcoming deadlines |
-| GET | `/api/v1/dashboard/overdue-tasks` | Required | Overdue tasks |
-| GET | `/api/v1/dashboard/priority-distribution` | Required | Priority distribution |
+| GET    | `/api/v1/dashboard/summary`               | Required | Task summary          |
+| GET    | `/api/v1/dashboard/progress`              | Required | Progress analytics    |
+| GET    | `/api/v1/dashboard/upcoming-deadlines`    | Required | Upcoming deadlines    |
+| GET    | `/api/v1/dashboard/overdue-tasks`         | Required | Overdue tasks         |
+| GET    | `/api/v1/dashboard/priority-distribution` | Required | Priority distribution |
 
 <a id="api-examples"></a>
 
@@ -821,14 +821,14 @@ Response:
 
 ```json
 {
- "success": true,
- "message": "Login berhasil",
- "data": {
- "access_token": "eyJhbGci...",
- "refresh_token": "dGhpcyBp...",
- "expires_in": 900,
- "token_type": "Bearer"
- }
+  "success": true,
+  "message": "Login berhasil",
+  "data": {
+    "access_token": "eyJhbGci...",
+    "refresh_token": "dGhpcyBp...",
+    "expires_in": 900,
+    "token_type": "Bearer"
+  }
 }
 ```
 
@@ -887,13 +887,13 @@ stateDiagram-v2
 
 ### Valid Status Transitions
 
-| From | To |
+| From        | To                   |
 | ----------- | -------------------- |
-| backlog | todo |
-| todo | backlog, in_progress |
-| in_progress | todo, review |
-| review | in_progress, done |
-| done | in_progress |
+| backlog     | todo                 |
+| todo        | backlog, in_progress |
+| in_progress | todo, review         |
+| review      | in_progress, done    |
+| done        | in_progress          |
 
 <a id="business-rules"></a>
 
@@ -1234,8 +1234,8 @@ source ~/.zshrc
 
 ```json
 {
- "title": "Task baru",
- "due_date": "2026-07-30"
+  "title": "Task baru",
+  "due_date": "2026-07-30"
 }
 ```
 
@@ -1279,16 +1279,16 @@ Tinggal import, langsung bisa tes semua 39 endpoint tanpa nulis kode.
 
 ### File
 
-| File | Fungsi |
+| File                            | Fungsi                           |
 | ------------------------------- | -------------------------------- |
-| `docs/postman-collection.json` | Kumpulan 39 endpoint siap pakai |
+| `docs/postman-collection.json`  | Kumpulan 39 endpoint siap pakai  |
 | `docs/postman-environment.json` | Variable (base_url, token, dll.) |
 
 ### Cara Import
 
 1. Buka Postman **Import** pilih kedua file di atas
 2. Pilih Environment **"GoTask Local"** di dropdown kanan atas
-3. Jalankan **Login** token otomatis tersimpan 
+3. Jalankan **Login** token otomatis tersimpan
 
 ### Struktur Folder
 
@@ -1314,32 +1314,32 @@ Tinggal import, langsung bisa tes semua 39 endpoint tanpa nulis kode.
 
 Biar tidak bingung dengan istilah-istilah teknis, berikut daftar kata yang sering muncul:
 
-| Istilah | Arti Sederhana |
+| Istilah            | Arti Sederhana                                                             |
 | ------------------ | -------------------------------------------------------------------------- |
-| **API** | Application Programming Interface — jembatan antara frontend dan backend |
-| **REST** | Gaya arsitektur API yang pakai method HTTP (GET, POST, PUT, DELETE) |
-| **JSON** | Format data ringan yang mudah dibaca manusia dan mesin |
-| **JWT** | JSON Web Token — "kartu identitas" digital untuk user yang sudah login |
-| **Access Token** | Token jangka pendek (15 menit) untuk akses API |
-| **Refresh Token** | Token jangka panjang (30 hari) untuk minta access token baru |
-| **Middleware** | "Pos pengecekan" yang dilewati setiap request sebelum sampai ke handler |
-| **Handler** | Fungsi yang menangani HTTP request di endpoint tertentu |
-| **Service** | Lapisan yang berisi aturan bisnis (business logic) |
-| **Repository** | Lapisan yang berhubungan langsung dengan database |
-| **DTO** | Data Transfer Object — struct untuk data yang masuk/keluar API |
-| **Model** | Struct yang merepresentasikan tabel di database |
-| **Interface** | "Kontrak" di Go — mendefinisikan method apa saja yang harus ada |
-| **Migration** | Cara mengubah struktur database secara terstruktur dan bisa di-_rollback_ |
-| **sqlc** | Tool yang mengubah file SQL biasa menjadi kode Go yang siap pakai |
-| **UUID** | Universally Unique Identifier — ID unik sepanjang masa, tidak akan bentrok |
-| **Soft Delete** | Menghapus data dengan menandai, bukan menghapus permanen |
-| **Transaction** | Operasi database yang "all or nothing" — semua sukses atau semua gagal |
-| **Hash** | Mengubah data (password) menjadi string acak yang tidak bisa dikembalikan |
-| **bcrypt** | Algoritma hashing khusus password yang sengaja dibuat lambat |
-| **CORS** | Cross-Origin Resource Sharing — aturan domain mana yang boleh akses API |
-| **Rate Limiting** | Membatasi jumlah request per detik untuk mencegah penyalahgunaan |
-| **Docker** | Wadah untuk menjalankan aplikasi secara terisolasi dan konsisten |
-| **Docker Compose** | Cara menjalankan banyak container Docker sekaligus (API + PostgreSQL) |
+| **API**            | Application Programming Interface — jembatan antara frontend dan backend   |
+| **REST**           | Gaya arsitektur API yang pakai method HTTP (GET, POST, PUT, DELETE)        |
+| **JSON**           | Format data ringan yang mudah dibaca manusia dan mesin                     |
+| **JWT**            | JSON Web Token — "kartu identitas" digital untuk user yang sudah login     |
+| **Access Token**   | Token jangka pendek (15 menit) untuk akses API                             |
+| **Refresh Token**  | Token jangka panjang (30 hari) untuk minta access token baru               |
+| **Middleware**     | "Pos pengecekan" yang dilewati setiap request sebelum sampai ke handler    |
+| **Handler**        | Fungsi yang menangani HTTP request di endpoint tertentu                    |
+| **Service**        | Lapisan yang berisi aturan bisnis (business logic)                         |
+| **Repository**     | Lapisan yang berhubungan langsung dengan database                          |
+| **DTO**            | Data Transfer Object — struct untuk data yang masuk/keluar API             |
+| **Model**          | Struct yang merepresentasikan tabel di database                            |
+| **Interface**      | "Kontrak" di Go — mendefinisikan method apa saja yang harus ada            |
+| **Migration**      | Cara mengubah struktur database secara terstruktur dan bisa di-_rollback_  |
+| **sqlc**           | Tool yang mengubah file SQL biasa menjadi kode Go yang siap pakai          |
+| **UUID**           | Universally Unique Identifier — ID unik sepanjang masa, tidak akan bentrok |
+| **Soft Delete**    | Menghapus data dengan menandai, bukan menghapus permanen                   |
+| **Transaction**    | Operasi database yang "all or nothing" — semua sukses atau semua gagal     |
+| **Hash**           | Mengubah data (password) menjadi string acak yang tidak bisa dikembalikan  |
+| **bcrypt**         | Algoritma hashing khusus password yang sengaja dibuat lambat               |
+| **CORS**           | Cross-Origin Resource Sharing — aturan domain mana yang boleh akses API    |
+| **Rate Limiting**  | Membatasi jumlah request per detik untuk mencegah penyalahgunaan           |
+| **Docker**         | Wadah untuk menjalankan aplikasi secara terisolasi dan konsisten           |
+| **Docker Compose** | Cara menjalankan banyak container Docker sekaligus (API + PostgreSQL)      |
 
 ---
 
@@ -1351,35 +1351,36 @@ Biar tidak bingung dengan istilah-istilah teknis, berikut daftar kata yang serin
 
 1. **Clone repository ini**
 
- ```bash
- git clone https://github.com/IqromAbadi/GoTask.git
- cd GoTask
- ```
+```bash
+git clone https://github.com/IqromAbadi/GoTask.git
+cd GoTask
+```
 
 2. **Jalankan dengan Docker Compose** (cara termudah)
 
- ```bash
- cp .env.example .env
- docker compose up -d
- ```
+```bash
+cp .env.example .env
+docker compose up -d
+```
 
 3. **Coba-coba endpoint** pakai Postman atau curl
 
 4. **Baca kode dengan urutan yang benar:**
- - Mulai dari `cmd/api/main.go` (pintu masuk)
- - Lalu `internal/auth/` (modul paling sederhana untuk dipahami)
- - Ikuti Rumus 6M: `model.go` `dto.go` `repository.go` `repository_impl.go` `service.go` `handler.go`
+
+- Mulai dari `cmd/api/main.go` (pintu masuk)
+- Lalu `internal/auth/` (modul paling sederhana untuk dipahami)
+- Ikuti Rumus 6M: `model.go` `dto.go` `repository.go` `repository_impl.go` `service.go` `handler.go`
 
 ### Ide untuk Latihan (Coba Implementasikan Sendiri!)
 
-| Tingkat | Ide Fitur | Modul yang Disentuh |
-| ----------- | ------------------------------------- | ---------------------------------- |
-| Mudah | Tambah field `color` di task list | `tasklist/` |
-| Mudah | Ganti pesan error ke Bahasa Inggris | `response.go` + semua `handler.go` |
-| Menengah | Tambah fitur tag/label di task | `task/` + migration baru |
-| Menengah | Assign task ke user lain (multi-user) | `task/` + `auth/` |
-| Sulit | Notifikasi real-time via WebSocket | Module baru `notification/` |
-| Sulit | Upload file attachment di task | Module baru `attachment/` |
+| Tingkat  | Ide Fitur                             | Modul yang Disentuh                |
+| -------- | ------------------------------------- | ---------------------------------- |
+| Mudah    | Tambah field `color` di task list     | `tasklist/`                        |
+| Mudah    | Ganti pesan error ke Bahasa Inggris   | `response.go` + semua `handler.go` |
+| Menengah | Tambah fitur tag/label di task        | `task/` + migration baru           |
+| Menengah | Assign task ke user lain (multi-user) | `task/` + `auth/`                  |
+| Sulit    | Notifikasi real-time via WebSocket    | Module baru `notification/`        |
+| Sulit    | Upload file attachment di task        | Module baru `attachment/`          |
 
 ### Aturan Kontribusi
 
@@ -1396,24 +1397,24 @@ Biar tidak bingung dengan istilah-istilah teknis, berikut daftar kata yang serin
 
 ## Status Project
 
-| Kategori | Status |
-| ---------------------- | ------------------- |
-| Authentication | Selesai |
-| User Profile | Selesai |
-| Task List CRUD | Selesai |
-| Task CRUD | Selesai |
-| Task Workflow | Selesai |
-| Progress Tracking | Selesai |
-| Review System | Selesai |
-| Comments | Selesai |
-| Activity Log | Selesai |
-| Dashboard | Selesai |
-| Unit Tests | 40+ test case |
-| Docker Support | Selesai |
-| API Documentation | README + OpenAPI |
-| Multi-user Support | Coming Soon |
-| File Attachments | Coming Soon |
-| Real-time Notification | Coming Soon |
+| Kategori               | Status           |
+| ---------------------- | ---------------- |
+| Authentication         | Selesai          |
+| User Profile           | Selesai          |
+| Task List CRUD         | Selesai          |
+| Task CRUD              | Selesai          |
+| Task Workflow          | Selesai          |
+| Progress Tracking      | Selesai          |
+| Review System          | Selesai          |
+| Comments               | Selesai          |
+| Activity Log           | Selesai          |
+| Dashboard              | Selesai          |
+| Unit Tests             | 40+ test case    |
+| Docker Support         | Selesai          |
+| API Documentation      | README + OpenAPI |
+| Multi-user Support     | Coming Soon      |
+| File Attachments       | Coming Soon      |
+| Real-time Notification | Coming Soon      |
 
 ---
 
