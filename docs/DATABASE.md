@@ -30,8 +30,19 @@ Dokumentasi lengkap pembuatan database GoTask dari nol (0) hingga struktur saat 
 8. [Entity Relationship Diagram (ERD)](#8-entity-relationship-diagram-erd)
 9. [Flowchart Alur Pembuatan Database](#9-flowchart-alur-pembuatan-database)
 10. [Contoh Data (Sample Data)](#10-contoh-data-sample-data)
+    - [10.1 User](#101-user)
+    - [10.2 Task List](#102-task-list)
+    - [10.3 Tasks](#103-tasks)
+    - [10.4 Progress Updates](#104-progress-updates)
+    - [10.5 Review](#105-review)
+    - [10.6 Comment](#106-comment)
+    - [10.7 Activity](#107-activity)
 11. [Index & Performance](#11-index--performance)
 12. [Best Practice & Catatan Penting](#12-best-practice--catatan-penting)
+    - [Security](#security)
+    - [Data Integrity](#data-integrity)
+    - [Performance](#performance)
+    - [Migration](#migration)
 13. [Cara Menjalankan Ulang dari Nol](#13-cara-menjalankan-ulang-dari-nol)
 14. [Troubleshooting Database](#14-troubleshooting-database)
 
@@ -41,11 +52,11 @@ Dokumentasi lengkap pembuatan database GoTask dari nol (0) hingga struktur saat 
 
 Sebelum memulai, pastikan sudah terinstall:
 
-| Tool | Versi | Cara Install (macOS) |
-|------|-------|---------------------|
-| PostgreSQL | 16+ | `brew install postgresql@16` |
-| golang-migrate | 4+ | `brew install golang-migrate` |
-| psql (PostgreSQL client) | 16+ | Otomatis terinstall bersama PostgreSQL |
+| Tool                     | Versi | Cara Install (macOS)                   |
+| ------------------------ | ----- | -------------------------------------- |
+| PostgreSQL               | 16+   | `brew install postgresql@16`           |
+| golang-migrate           | 4+    | `brew install golang-migrate`          |
+| psql (PostgreSQL client) | 16+   | Otomatis terinstall bersama PostgreSQL |
 
 ---
 
@@ -71,6 +82,7 @@ GoTask menggunakan **PostgreSQL 16** sebagai database. Arsitekturnya dirancang d
 ```
 
 **Pola relasi:**
+
 - **1 user** punya **banyak task list**
 - **1 task list** punya **banyak task**
 - **1 task** punya **banyak** progress updates, reviews, comments, activities
@@ -84,6 +96,7 @@ GoTask menggunakan **PostgreSQL 16** sebagai database. Arsitekturnya dirancang d
 Semua tabel menggunakan **UUID** (Universally Unique Identifier) sebagai primary key, bukan auto-increment integer.
 
 **Kenapa UUID?**
+
 - Tidak bisa ditebak — user tidak bisa "menebak" ID milik user lain
 - Unik secara global — tidak akan bentrok meskipun data digabung dari banyak server
 - Aman untuk URL publik — `GET /tasks/550e8400-e29b-41d4-a716-446655440000` tidak membocorkan jumlah data
@@ -97,6 +110,7 @@ Semua kolom waktu (`created_at`, `updated_at`, dll.) menggunakan **TIMESTAMP WIT
 ### Soft Delete
 
 Tabel `tasks` dan `task_comments` menggunakan **soft delete** — data tidak benar-benar dihapus, hanya diberi tanda `deleted_at`. Ini memungkinkan:
+
 - Data bisa dikembalikan jika tidak sengaja terhapus
 - Activity log tetap memiliki referensi ke data yang "dihapus"
 - Memenuhi kebutuhan audit trail
@@ -105,13 +119,13 @@ Tabel `tasks` dan `task_comments` menggunakan **soft delete** — data tidak ben
 
 Beberapa tabel memiliki **check constraint** untuk memastikan data selalu valid di level database:
 
-| Tabel | Constraint | Aturan |
-|-------|-----------|--------|
-| tasks | `chk_tasks_status` | Status harus: backlog, todo, in_progress, review, done |
-| tasks | `chk_tasks_priority` | Priority harus: low, medium, high, urgent |
-| tasks | `chk_tasks_progress` | Progress harus 0-100 |
-| task_progress_updates | `chk_progress_updates_progress` | Progress harus 0-100 |
-| task_reviews | `chk_reviews_status` | Status harus: pending, approved, changes_requested |
+| Tabel                 | Constraint                      | Aturan                                                 |
+| --------------------- | ------------------------------- | ------------------------------------------------------ |
+| tasks                 | `chk_tasks_status`              | Status harus: backlog, todo, in_progress, review, done |
+| tasks                 | `chk_tasks_priority`            | Priority harus: low, medium, high, urgent              |
+| tasks                 | `chk_tasks_progress`            | Progress harus 0-100                                   |
+| task_progress_updates | `chk_progress_updates_progress` | Progress harus 0-100                                   |
+| task_reviews          | `chk_reviews_status`            | Status harus: pending, approved, changes_requested     |
 
 ---
 
@@ -166,12 +180,14 @@ Setelah aktif, kita bisa pakai `uuid_generate_v4()` untuk generate UUID random.
 **Migrasi** adalah cara untuk mengelola perubahan struktur database secara terstruktur dan bisa di-rollback.
 
 **Kenapa pakai migrasi?**
+
 - **Version control** — setiap perubahan database tercatat, seperti git untuk kode
 - **Rollback** — kalau ada masalah, bisa kembali ke versi sebelumnya
 - **Kolaborasi** — tim bisa menjalankan migrasi yang sama di laptop masing-masing
 - **Deployment** — production database bisa di-upgrade dengan aman
 
 **File migrasi GoTask:**
+
 ```
 db/migrations/
 └── 000001_init_schema.up.sql    # Membuat semua tabel
@@ -179,6 +195,7 @@ db/migrations/
 ```
 
 Format penamaan: `{nomor}_{deskripsi}.{arah}.sql`
+
 - `000001` = nomor urut
 - `init_schema` = deskripsi
 - `up` = migrasi naik (create)
@@ -224,25 +241,28 @@ CREATE TABLE users (
 );
 ```
 
-| Kolom | Tipe | Keterangan |
-|-------|------|------------|
-| `id` | UUID | Primary key, auto-generate |
-| `name` | VARCHAR(255) | Nama lengkap pengguna |
-| `email` | VARCHAR(255) | Email (UNIQUE, lowercase) |
+| Kolom           | Tipe         | Keterangan                                        |
+| --------------- | ------------ | ------------------------------------------------- |
+| `id`            | UUID         | Primary key, auto-generate                        |
+| `name`          | VARCHAR(255) | Nama lengkap pengguna                             |
+| `email`         | VARCHAR(255) | Email (UNIQUE, lowercase)                         |
 | `password_hash` | VARCHAR(255) | Hash password (bcrypt) — **bukan** password asli! |
-| `avatar_url` | VARCHAR(500) | URL foto profil (nullable) |
-| `created_at` | TIMESTAMPTZ | Waktu pendaftaran (UTC) |
-| `updated_at` | TIMESTAMPTZ | Waktu terakhir diupdate (UTC) |
+| `avatar_url`    | VARCHAR(500) | URL foto profil (nullable)                        |
+| `created_at`    | TIMESTAMPTZ  | Waktu pendaftaran (UTC)                           |
+| `updated_at`    | TIMESTAMPTZ  | Waktu terakhir diupdate (UTC)                     |
 
 **Index:**
+
 - `idx_users_email` — mempercepat pencarian berdasarkan email (login)
 
 **Catatan penting:**
+
 - `password_hash` menyimpan hasil bcrypt, **bukan password mentah**
 - Email selalu disimpan dalam **lowercase** (dinormalisasi di backend)
 - ON DELETE CASCADE: saat user dihapus, semua data terkait ikut terhapus
 
 **Relasi:**
+
 - 1 user → banyak task_lists
 - 1 user → banyak refresh_tokens
 - 1 user → banyak tasks (sebagai created_by)
@@ -265,20 +285,22 @@ CREATE TABLE refresh_tokens (
 );
 ```
 
-| Kolom | Tipe | Keterangan |
-|-------|------|------------|
-| `id` | UUID | Primary key |
-| `user_id` | UUID | Foreign key ke users |
+| Kolom        | Tipe         | Keterangan                                     |
+| ------------ | ------------ | ---------------------------------------------- |
+| `id`         | UUID         | Primary key                                    |
+| `user_id`    | UUID         | Foreign key ke users                           |
 | `token_hash` | VARCHAR(255) | **Hash** dari refresh token — bukan token asli |
-| `expires_at` | TIMESTAMPTZ | Waktu kadaluarsa (30 hari) |
-| `revoked_at` | TIMESTAMPTZ | Waktu pencabutan (NULL = masih aktif) |
-| `created_at` | TIMESTAMPTZ | Waktu pembuatan |
+| `expires_at` | TIMESTAMPTZ  | Waktu kadaluarsa (30 hari)                     |
+| `revoked_at` | TIMESTAMPTZ  | Waktu pencabutan (NULL = masih aktif)          |
+| `created_at` | TIMESTAMPTZ  | Waktu pembuatan                                |
 
 **Kenapa simpan hash, bukan token asli?**
+
 - Kalau database bocor, penyerang tidak bisa pakai token hasil curian
 - Token asli hanya dikirim ke user sekali (saat login/refresh)
 
 **Index:**
+
 - `idx_refresh_tokens_user_id` — cepat mencari token milik user tertentu
 - `idx_refresh_tokens_token_hash` — cepat mencocokkan token saat refresh
 
@@ -300,17 +322,18 @@ CREATE TABLE task_lists (
 );
 ```
 
-| Kolom | Tipe | Keterangan |
-|-------|------|------------|
-| `id` | UUID | Primary key |
-| `user_id` | UUID | Foreign key ke users (pemilik) |
-| `name` | VARCHAR(255) | Nama task list, misal "Sprint 1" |
-| `description` | TEXT | Deskripsi (nullable) |
-| `is_archived` | BOOLEAN | Status arsip (default: FALSE) |
-| `created_at` | TIMESTAMPTZ | Waktu pembuatan |
-| `updated_at` | TIMESTAMPTZ | Waktu update terakhir |
+| Kolom         | Tipe         | Keterangan                       |
+| ------------- | ------------ | -------------------------------- |
+| `id`          | UUID         | Primary key                      |
+| `user_id`     | UUID         | Foreign key ke users (pemilik)   |
+| `name`        | VARCHAR(255) | Nama task list, misal "Sprint 1" |
+| `description` | TEXT         | Deskripsi (nullable)             |
+| `is_archived` | BOOLEAN      | Status arsip (default: FALSE)    |
+| `created_at`  | TIMESTAMPTZ  | Waktu pembuatan                  |
+| `updated_at`  | TIMESTAMPTZ  | Waktu update terakhir            |
 
 **Catatan:**
+
 - `is_archived` digunakan untuk fitur arsip, bukan delete
 - User hanya bisa lihat task list miliknya sendiri (authorization di query)
 
@@ -344,40 +367,44 @@ CREATE TABLE tasks (
 );
 ```
 
-| Kolom | Tipe | Keterangan |
-|-------|------|------------|
-| `id` | UUID | Primary key |
-| `list_id` | UUID | Foreign key ke task_lists |
-| `created_by` | UUID | Foreign key ke users (pembuat) |
-| `title` | VARCHAR(500) | Judul task |
-| `description` | TEXT | Deskripsi detail (nullable) |
-| `status` | VARCHAR(50) | Status workflow (default: backlog) |
-| `priority` | VARCHAR(50) | Prioritas (default: medium) |
-| `progress` | INTEGER | Persentase 0-100 (default: 0) |
-| `due_date` | DATE | Tenggat waktu (nullable) |
-| `estimated_minutes` | INTEGER | Estimasi pengerjaan dalam menit |
-| `started_at` | TIMESTAMPTZ | Kapan mulai dikerjakan (auto-set saat in_progress) |
-| `completed_at` | TIMESTAMPTZ | Kapan selesai (auto-set saat review approved) |
-| `created_at` | TIMESTAMPTZ | Waktu pembuatan |
-| `updated_at` | TIMESTAMPTZ | Waktu update terakhir |
-| `deleted_at` | TIMESTAMPTZ | Soft delete marker |
+| Kolom               | Tipe         | Keterangan                                         |
+| ------------------- | ------------ | -------------------------------------------------- |
+| `id`                | UUID         | Primary key                                        |
+| `list_id`           | UUID         | Foreign key ke task_lists                          |
+| `created_by`        | UUID         | Foreign key ke users (pembuat)                     |
+| `title`             | VARCHAR(500) | Judul task                                         |
+| `description`       | TEXT         | Deskripsi detail (nullable)                        |
+| `status`            | VARCHAR(50)  | Status workflow (default: backlog)                 |
+| `priority`          | VARCHAR(50)  | Prioritas (default: medium)                        |
+| `progress`          | INTEGER      | Persentase 0-100 (default: 0)                      |
+| `due_date`          | DATE         | Tenggat waktu (nullable)                           |
+| `estimated_minutes` | INTEGER      | Estimasi pengerjaan dalam menit                    |
+| `started_at`        | TIMESTAMPTZ  | Kapan mulai dikerjakan (auto-set saat in_progress) |
+| `completed_at`      | TIMESTAMPTZ  | Kapan selesai (auto-set saat review approved)      |
+| `created_at`        | TIMESTAMPTZ  | Waktu pembuatan                                    |
+| `updated_at`        | TIMESTAMPTZ  | Waktu update terakhir                              |
+| `deleted_at`        | TIMESTAMPTZ  | Soft delete marker                                 |
 
 **Status workflow:**
+
 ```
 backlog → todo → in_progress → review → done
 ```
 
 **Prioritas:**
+
 ```
 low < medium < high < urgent
 ```
 
 **Check constraints:**
+
 - Status hanya boleh 5 nilai di atas
 - Priority hanya boleh 4 nilai di atas
 - Progress harus antara 0 dan 100
 
 **Index:**
+
 - `idx_tasks_list_id` — mempercepat Board View (group by list)
 - `idx_tasks_status` — mempercepat filter & dashboard
 - `idx_tasks_priority` — mempercepat filter prioritas
@@ -404,17 +431,18 @@ CREATE TABLE task_progress_updates (
 );
 ```
 
-| Kolom | Tipe | Keterangan |
-|-------|------|------------|
-| `id` | UUID | Primary key |
-| `task_id` | UUID | Foreign key ke tasks |
-| `user_id` | UUID | Foreign key ke users (siapa yang update) |
-| `progress` | INTEGER | Nilai progress (0-100) |
-| `note` | TEXT | Catatan progress (nullable) |
-| `created_at` | TIMESTAMPTZ | Waktu update |
-| `updated_at` | TIMESTAMPTZ | Waktu edit terakhir |
+| Kolom        | Tipe        | Keterangan                               |
+| ------------ | ----------- | ---------------------------------------- |
+| `id`         | UUID        | Primary key                              |
+| `task_id`    | UUID        | Foreign key ke tasks                     |
+| `user_id`    | UUID        | Foreign key ke users (siapa yang update) |
+| `progress`   | INTEGER     | Nilai progress (0-100)                   |
+| `note`       | TEXT        | Catatan progress (nullable)              |
+| `created_at` | TIMESTAMPTZ | Waktu update                             |
+| `updated_at` | TIMESTAMPTZ | Waktu edit terakhir                      |
 
 **Aturan bisnis:**
+
 - Progress hanya bisa 0-100
 - Progress baru tidak boleh < progress lama (kecuali allow_rollback)
 - Hanya bisa update saat task status = in_progress
@@ -441,19 +469,20 @@ CREATE TABLE task_reviews (
 );
 ```
 
-| Kolom | Tipe | Keterangan |
-|-------|------|------------|
-| `id` | UUID | Primary key |
-| `task_id` | UUID | Foreign key ke tasks |
-| `reviewer_id` | UUID | Foreign key ke users (siapa yang review) |
-| `status` | VARCHAR(50) | Status review (pending/approved/changes_requested) |
-| `submission_note` | TEXT | Catatan saat submit (nullable) |
-| `review_note` | TEXT | Catatan hasil review (nullable) |
-| `reviewed_at` | TIMESTAMPTZ | Kapan direview (NULL sebelum direview) |
-| `created_at` | TIMESTAMPTZ | Waktu submit |
-| `updated_at` | TIMESTAMPTZ | Waktu update |
+| Kolom             | Tipe        | Keterangan                                         |
+| ----------------- | ----------- | -------------------------------------------------- |
+| `id`              | UUID        | Primary key                                        |
+| `task_id`         | UUID        | Foreign key ke tasks                               |
+| `reviewer_id`     | UUID        | Foreign key ke users (siapa yang review)           |
+| `status`          | VARCHAR(50) | Status review (pending/approved/changes_requested) |
+| `submission_note` | TEXT        | Catatan saat submit (nullable)                     |
+| `review_note`     | TEXT        | Catatan hasil review (nullable)                    |
+| `reviewed_at`     | TIMESTAMPTZ | Kapan direview (NULL sebelum direview)             |
+| `created_at`      | TIMESTAMPTZ | Waktu submit                                       |
+| `updated_at`      | TIMESTAMPTZ | Waktu update                                       |
 
 **Flow review:**
+
 ```
 pending → approved        (task jadi done, completed_at terisi)
 pending → changes_requested (task kembali ke in_progress)
@@ -477,17 +506,18 @@ CREATE TABLE task_comments (
 );
 ```
 
-| Kolom | Tipe | Keterangan |
-|-------|------|------------|
-| `id` | UUID | Primary key |
-| `task_id` | UUID | Foreign key ke tasks |
-| `user_id` | UUID | Foreign key ke users (pemberi komentar) |
-| `content` | TEXT | Isi komentar |
-| `created_at` | TIMESTAMPTZ | Waktu pembuatan |
-| `updated_at` | TIMESTAMPTZ | Waktu edit terakhir |
-| `deleted_at` | TIMESTAMPTZ | Soft delete marker |
+| Kolom        | Tipe        | Keterangan                              |
+| ------------ | ----------- | --------------------------------------- |
+| `id`         | UUID        | Primary key                             |
+| `task_id`    | UUID        | Foreign key ke tasks                    |
+| `user_id`    | UUID        | Foreign key ke users (pemberi komentar) |
+| `content`    | TEXT        | Isi komentar                            |
+| `created_at` | TIMESTAMPTZ | Waktu pembuatan                         |
+| `updated_at` | TIMESTAMPTZ | Waktu edit terakhir                     |
+| `deleted_at` | TIMESTAMPTZ | Soft delete marker                      |
 
 **Catatan:**
+
 - Soft delete — komentar yang "dihapus" masih ada di database
 - User hanya bisa edit/hapus komentar miliknya sendiri
 - Query selalu filter `WHERE deleted_at IS NULL`
@@ -511,18 +541,19 @@ CREATE TABLE task_activities (
 );
 ```
 
-| Kolom | Tipe | Keterangan |
-|-------|------|------------|
-| `id` | UUID | Primary key |
-| `task_id` | UUID | Foreign key ke tasks (NULL jika task dihapus) |
-| `user_id` | UUID | Foreign key ke users (siapa yang melakukan) |
-| `action` | VARCHAR(100) | Jenis aksi (task_created, status_changed, dll.) |
-| `old_value` | TEXT | Nilai sebelum perubahan |
-| `new_value` | TEXT | Nilai setelah perubahan |
-| `metadata` | JSONB | Data tambahan (misal: task_title) |
-| `created_at` | TIMESTAMPTZ | Waktu kejadian |
+| Kolom        | Tipe         | Keterangan                                      |
+| ------------ | ------------ | ----------------------------------------------- |
+| `id`         | UUID         | Primary key                                     |
+| `task_id`    | UUID         | Foreign key ke tasks (NULL jika task dihapus)   |
+| `user_id`    | UUID         | Foreign key ke users (siapa yang melakukan)     |
+| `action`     | VARCHAR(100) | Jenis aksi (task_created, status_changed, dll.) |
+| `old_value`  | TEXT         | Nilai sebelum perubahan                         |
+| `new_value`  | TEXT         | Nilai setelah perubahan                         |
+| `metadata`   | JSONB        | Data tambahan (misal: task_title)               |
+| `created_at` | TIMESTAMPTZ  | Waktu kejadian                                  |
 
 **Jenis aksi yang dicatat:**
+
 ```
 task_created, task_updated, task_deleted,
 task_status_changed, task_priority_changed,
@@ -533,6 +564,7 @@ comment_updated, comment_deleted, task_reopened
 ```
 
 **Catatan:**
+
 - Activity dibuat **otomatis oleh backend** — tidak ada endpoint create/update/delete
 - `ON DELETE SET NULL` — jika task dihapus, activity tetap ada (task_id jadi NULL)
 - `metadata` pakai JSONB — fleksibel untuk data tambahan
@@ -543,10 +575,10 @@ comment_updated, comment_deleted, task_reopened
 
 **Tujuan:** Tabel otomatis dari `golang-migrate` untuk melacak versi migrasi.
 
-| Kolom | Tipe | Keterangan |
-|-------|------|------------|
-| `version` | BIGINT | Nomor versi migrasi |
-| `dirty` | BOOLEAN | FALSE = migrasi sukses, TRUE = migrasi gagal di tengah jalan |
+| Kolom     | Tipe    | Keterangan                                                   |
+| --------- | ------- | ------------------------------------------------------------ |
+| `version` | BIGINT  | Nomor versi migrasi                                          |
+| `dirty`   | BOOLEAN | FALSE = migrasi sukses, TRUE = migrasi gagal di tengah jalan |
 
 Tabel ini **otomatis dibuat dan dikelola** oleh golang-migrate. Tidak perlu diurus manual.
 
@@ -591,6 +623,7 @@ users (1) ──────< task_lists (N)
 ```
 
 **Jenis relasi:**
+
 - **One-to-Many:** users → task_lists, task_lists → tasks
 - **One-to-Many:** tasks → progress_updates, reviews, comments, activities
 - **Many-to-One:** task_activities → tasks (ON DELETE SET NULL)
@@ -718,15 +751,15 @@ flowchart TD
     E --> F[Grant Privileges]
     F --> G[Aktifkan Extension uuid-ossp]
     G --> H{Jalankan Migrasi?}
-    
+
     H -->|Ya| I[Migrate UP]
     H -->|Tidak| J[Jalankan SQL Manual]
-    
+
     I --> K[Check schema_migrations]
     K --> L{version=1, dirty=false?}
     L -->|Ya| M[SEMUA TABEL SIAP]
     L -->|Tidak| N[Force reset & ulangi]
-    
+
     J --> M
 
     M --> O[Tabel 1: users]
@@ -737,7 +770,7 @@ flowchart TD
     S --> T[Tabel 6: task_reviews]
     T --> U[Tabel 7: task_comments]
     U --> V[Tabel 8: task_activities]
-    
+
     V --> W[Indexes terpasang]
     W --> X[Constraints aktif]
     X --> Y[Database Siap Digunakan]
@@ -747,6 +780,7 @@ flowchart TD
 
 ## 10. Contoh Data (Sample Data)
 
+<a id="101-user"></a>
 ### 10.1 User
 
 ```sql
@@ -754,6 +788,7 @@ INSERT INTO users (id, name, email, password_hash) VALUES
 ('a1000000-0000-0000-0000-000000000001', 'Agung', 'agung@example.com', '$2a$10$...hash...');
 ```
 
+<a id="102-task-list"></a>
 ### 10.2 Task List
 
 ```sql
@@ -761,6 +796,7 @@ INSERT INTO task_lists (id, user_id, name, description) VALUES
 ('b1000000-0000-0000-0000-000000000001', 'a1000000-0000-0000-0000-000000000001', 'Sprint 1', 'Sprint pertama — modul authentication');
 ```
 
+<a id="103-tasks"></a>
 ### 10.3 Tasks
 
 ```sql
@@ -781,6 +817,7 @@ INSERT INTO tasks (id, list_id, created_by, title, status, priority, progress, s
 ('c1000000-0000-0000-0000-000000000004', 'b1000000-0000-0000-0000-000000000001', 'a1000000-0000-0000-0000-000000000001', 'Setup project structure', 'done', 'high', 100, '2026-07-20T08:00:00Z', '2026-07-22T17:00:00Z');
 ```
 
+<a id="104-progress-updates"></a>
 ### 10.4 Progress Updates
 
 ```sql
@@ -789,6 +826,7 @@ INSERT INTO task_progress_updates (task_id, user_id, progress, note) VALUES
 ('c1000000-0000-0000-0000-000000000003', 'a1000000-0000-0000-0000-000000000001', 60, 'Handler & service selesai');
 ```
 
+<a id="105-review"></a>
 ### 10.5 Review
 
 ```sql
@@ -796,6 +834,7 @@ INSERT INTO task_reviews (task_id, reviewer_id, status, submission_note) VALUES
 ('c1000000-0000-0000-0000-000000000003', 'a1000000-0000-0000-0000-000000000001', 'pending', 'Semua endpoint auth selesai, tolong di-review');
 ```
 
+<a id="106-comment"></a>
 ### 10.6 Comment
 
 ```sql
@@ -803,6 +842,7 @@ INSERT INTO task_comments (task_id, user_id, content) VALUES
 ('c1000000-0000-0000-0000-000000000003', 'a1000000-0000-0000-0000-000000000001', 'Jangan lupa tambah validasi password strength');
 ```
 
+<a id="107-activity"></a>
 ### 10.7 Activity
 
 ```sql
@@ -817,24 +857,25 @@ INSERT INTO task_activities (task_id, user_id, action, old_value, new_value) VAL
 
 ### Daftar Index
 
-| Index | Tabel | Kolom | Tujuan |
-|-------|-------|-------|--------|
-| `idx_users_email` | users | email | Cepat mencari user saat login |
-| `idx_refresh_tokens_user_id` | refresh_tokens | user_id | Cepat revoke semua token user |
-| `idx_refresh_tokens_token_hash` | refresh_tokens | token_hash | Cepat validasi token saat refresh |
-| `idx_task_lists_user_id` | task_lists | user_id | Cepat list task list milik user |
-| `idx_tasks_list_id` | tasks | list_id | Cepat Board View (group by list) |
-| `idx_tasks_status` | tasks | status | Cepat filter & dashboard aggregation |
-| `idx_tasks_priority` | tasks | priority | Cepat filter prioritas |
-| `idx_tasks_due_date` | tasks | due_date | Cepat deadline & overdue queries |
-| `idx_tasks_deleted_at` | tasks | deleted_at | Cepat exclude soft-deleted tasks |
-| `idx_task_progress_updates_task_id` | progress_updates | task_id | Cepat list progress per task |
-| `idx_task_reviews_task_id` | reviews | task_id | Cepat list review per task |
-| `idx_task_comments_task_id` | comments | task_id | Cepat list komentar per task |
-| `idx_task_activities_task_id` | activities | task_id | Cepat list aktivitas per task |
-| `idx_task_activities_user_id` | activities | user_id | Cepat list semua aktivitas user |
+| Index                               | Tabel            | Kolom      | Tujuan                               |
+| ----------------------------------- | ---------------- | ---------- | ------------------------------------ |
+| `idx_users_email`                   | users            | email      | Cepat mencari user saat login        |
+| `idx_refresh_tokens_user_id`        | refresh_tokens   | user_id    | Cepat revoke semua token user        |
+| `idx_refresh_tokens_token_hash`     | refresh_tokens   | token_hash | Cepat validasi token saat refresh    |
+| `idx_task_lists_user_id`            | task_lists       | user_id    | Cepat list task list milik user      |
+| `idx_tasks_list_id`                 | tasks            | list_id    | Cepat Board View (group by list)     |
+| `idx_tasks_status`                  | tasks            | status     | Cepat filter & dashboard aggregation |
+| `idx_tasks_priority`                | tasks            | priority   | Cepat filter prioritas               |
+| `idx_tasks_due_date`                | tasks            | due_date   | Cepat deadline & overdue queries     |
+| `idx_tasks_deleted_at`              | tasks            | deleted_at | Cepat exclude soft-deleted tasks     |
+| `idx_task_progress_updates_task_id` | progress_updates | task_id    | Cepat list progress per task         |
+| `idx_task_reviews_task_id`          | reviews          | task_id    | Cepat list review per task           |
+| `idx_task_comments_task_id`         | comments         | task_id    | Cepat list komentar per task         |
+| `idx_task_activities_task_id`       | activities       | task_id    | Cepat list aktivitas per task        |
+| `idx_task_activities_user_id`       | activities       | user_id    | Cepat list semua aktivitas user      |
 
 **Kenapa index penting?**
+
 - Tanpa index, PostgreSQL scan seluruh tabel (lambat untuk data besar)
 - Dengan index, pencarian seperti mencari di buku telepon — langsung ke halaman yang tepat
 
@@ -842,40 +883,44 @@ INSERT INTO task_activities (task_id, user_id, action, old_value, new_value) VAL
 
 ## 12. Best Practice & Catatan Penting
 
+<a id="security"></a>
 ### Security
 
-| Praktik | Penerapan |
-|---------|-----------|
-| Password tidak disimpan mentah | `password_hash` pakai bcrypt (hash satu arah) |
-| Refresh token tidak plain text | `token_hash` pakai SHA-256 |
-| ID tidak bisa ditebak | UUID, bukan auto-increment integer |
-| SQL injection dicegah | Semua query pakai parameterized query (`$1`, `$2`) |
+| Praktik                        | Penerapan                                          |
+| ------------------------------ | -------------------------------------------------- |
+| Password tidak disimpan mentah | `password_hash` pakai bcrypt (hash satu arah)      |
+| Refresh token tidak plain text | `token_hash` pakai SHA-256                         |
+| ID tidak bisa ditebak          | UUID, bukan auto-increment integer                 |
+| SQL injection dicegah          | Semua query pakai parameterized query (`$1`, `$2`) |
 
+<a id="data-integrity"></a>
 ### Data Integrity
 
-| Praktik | Penerapan |
-|---------|-----------|
-| Status terbatas | CHECK constraint di tasks.status, tasks.priority |
-| Progress valid | CHECK constraint (0-100) |
-| FK dengan CASCADE | Hapus user → hapus semua data terkait |
-| Soft delete | tasks & comments tidak benar-benar dihapus |
-| Timestamp UTC | Semua TIMESTAMPTZ, aplikasi menggunakan UTC |
+| Praktik           | Penerapan                                        |
+| ----------------- | ------------------------------------------------ |
+| Status terbatas   | CHECK constraint di tasks.status, tasks.priority |
+| Progress valid    | CHECK constraint (0-100)                         |
+| FK dengan CASCADE | Hapus user → hapus semua data terkait            |
+| Soft delete       | tasks & comments tidak benar-benar dihapus       |
+| Timestamp UTC     | Semua TIMESTAMPTZ, aplikasi menggunakan UTC      |
 
+<a id="performance"></a>
 ### Performance
 
-| Praktik | Penerapan |
-|---------|-----------|
-| Index di kolom pencarian | email, status, priority, due_date, list_id |
-| Connection pool | Max 25 open connections, 10 idle |
+| Praktik                    | Penerapan                                           |
+| -------------------------- | --------------------------------------------------- |
+| Index di kolom pencarian   | email, status, priority, due_date, list_id          |
+| Connection pool            | Max 25 open connections, 10 idle                    |
 | Query JOIN untuk ownership | Setiap query task JOIN task_lists untuk cek user_id |
 
+<a id="migration"></a>
 ### Migration
 
-| Praktik | Penerapan |
-|---------|-----------|
-| Version control | Setiap perubahan database ada di file migrasi |
-| Rollback siap | Setiap `up.sql` punya `down.sql` |
-| Idempotent | `CREATE EXTENSION IF NOT EXISTS` — aman dijalankan berkali-kali |
+| Praktik         | Penerapan                                                       |
+| --------------- | --------------------------------------------------------------- |
+| Version control | Setiap perubahan database ada di file migrasi                   |
+| Rollback siap   | Setiap `up.sql` punya `down.sql`                                |
+| Idempotent      | `CREATE EXTENSION IF NOT EXISTS` — aman dijalankan berkali-kali |
 
 ---
 
@@ -924,6 +969,7 @@ psql "$DATABASE_URL" -c "\dt"
 **Penyebab:** Migrasi belum dijalankan.
 
 **Solusi:**
+
 ```bash
 migrate -path db/migrations -database "$DATABASE_URL" up
 ```
@@ -933,6 +979,7 @@ migrate -path db/migrations -database "$DATABASE_URL" up
 **Penyebab:** Migrasi sebelumnya gagal di tengah jalan.
 
 **Solusi:**
+
 ```bash
 # Reset versi paksa
 migrate -path db/migrations -database "$DATABASE_URL" force 1
@@ -943,6 +990,7 @@ migrate -path db/migrations -database "$DATABASE_URL" force 1
 **Penyebab:** Extension belum diinstall.
 
 **Solusi:**
+
 ```sql
 psql "$DATABASE_URL" -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
 ```
